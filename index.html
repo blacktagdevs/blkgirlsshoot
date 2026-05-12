@@ -23,125 +23,8 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-  /* ========================================================== */
-  /* EDIT BLOCK 2 — BRAND TOKENS                                  */
-  /* Colors + fonts. Locked to BGS brand kit by Jaylin Graphics.  */
-  /* Change the hex codes here to recolor the entire site.        */
-  /* ========================================================== */
-  :root {
-    --pink-deep:    #DF87B0;   /* primary */
-    --pink-soft:    #F6B1D5;   /* accent */
-    --black:        #0A0A0A;
-    --cream:        #FBF6F2;   /* off-white background */
-    --ink:          #1A1A1A;
-    --font-display: 'DM Serif Display', 'Kind Avenue', Georgia, serif;
-    --font-body:    'Poppins', system-ui, -apple-system, sans-serif;
-  }
-
-  /* ---- base ---- */
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--font-body);
-    color: var(--ink);
-    background: var(--cream);
-    -webkit-font-smoothing: antialiased;
-  }
-  .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
-  .font-body    { font-family: var(--font-body); }
-
-  /* ---- color utilities ---- */
-  .bg-pink-deep  { background: var(--pink-deep); }
-  .bg-pink-soft  { background: var(--pink-soft); }
-  .bg-cream      { background: var(--cream); }
-  .bg-ink        { background: var(--ink); }
-  .text-pink-deep { color: var(--pink-deep); }
-  .text-pink-soft { color: var(--pink-soft); }
-  .text-cream     { color: var(--cream); }
-  .text-ink       { color: var(--ink); }
-  .border-pink-deep { border-color: var(--pink-deep); }
-
-  /* ---- buttons ---- */
-  .btn-primary {
-    display: inline-block;
-    background: var(--pink-deep);
-    color: white;
-    padding: 0.95rem 2rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    border-radius: 999px;
-    transition: transform .15s ease, background .15s ease;
-  }
-  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
-  .btn-ghost {
-    display: inline-block;
-    border: 2px solid var(--pink-deep);
-    color: var(--pink-deep);
-    padding: 0.85rem 1.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    border-radius: 999px;
-    transition: all .15s ease;
-  }
-  .btn-ghost:hover { background: var(--pink-deep); color: white; }
-
-  /* ---- gallery hover ---- */
-  .gallery-img {
-    transition: transform .4s ease, filter .4s ease;
-    filter: saturate(1.05);
-  }
-  .gallery-img:hover { transform: scale(1.03); filter: saturate(1.2) brightness(1.05); }
-
-  /* ---- before/after slider ---- */
-  .ba-wrap { position: relative; overflow: hidden; border-radius: 12px; user-select: none; }
-  .ba-wrap img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-  .ba-after { position: absolute; inset: 0; clip-path: inset(0 50% 0 0); }
-  .ba-handle {
-    position: absolute; top: 0; bottom: 0; left: 50%;
-    width: 3px; background: var(--pink-soft); cursor: ew-resize;
-    transform: translateX(-50%);
-  }
-  .ba-handle::before {
-    content: ''; position: absolute; top: 50%; left: 50%;
-    width: 44px; height: 44px; border-radius: 999px;
-    background: var(--pink-deep); transform: translate(-50%, -50%);
-    box-shadow: 0 4px 16px rgba(0,0,0,.25);
-  }
-  .ba-handle::after {
-    content: '⇄'; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%); color: white; font-size: 1.1rem; font-weight: bold;
-  }
-
-  /* ---- FAQ accordion ---- */
-  details summary { list-style: none; cursor: pointer; }
-  details summary::-webkit-details-marker { display: none; }
-  details[open] .faq-icon { transform: rotate(45deg); }
-  .faq-icon { transition: transform .2s ease; display: inline-block; }
-
-  /* ---- form inputs ---- */
-  .field {
-    width: 100%; padding: 0.9rem 1.1rem;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(246,177,213,.3);
-    border-radius: 8px; color: white;
-    transition: border-color .15s ease;
-  }
-  .field:focus { outline: none; border-color: var(--pink-soft); background: rgba(255,255,255,.12); }
-  .field::placeholder { color: rgba(255,255,255,.45); }
-
-  /* ---- logo submark ---- */
-  .submark-fallback {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 48px; height: 48px; border-radius: 999px;
-    background: var(--pink-deep); color: white;
-    font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
-    letter-spacing: 0.05em;
-  }
-</style>
+<!-- Brand tokens + component styles. Edit assets/css/styles.css to retheme. -->
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
@@ -152,8 +35,7 @@
 <header class="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-pink-deep/20">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="#top" class="flex items-center gap-3">
-      <!-- Drop your submark PNG at /assets/logo-submark.png to replace this fallback -->
-      <img src="assets/logo-submark.png" alt="BGS"
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="BGS"
            class="h-12 w-12 rounded-full"
            onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
       <span class="submark-fallback" style="display:none">BGS</span>
@@ -203,8 +85,7 @@
       </div>
     </div>
     <div class="relative">
-      <!-- Drop hero photo at /assets/hero.jpg -->
-      <img src="assets/hero.jpg" alt="Blk Girls Shoot campaign image"
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/f487f296-88b0-4ac1-0f59-391bd3377a00/public" alt="Blk Girls Shoot campaign image"
            class="w-full h-[520px] object-cover rounded-2xl shadow-2xl"
            onerror="this.style.background='linear-gradient(135deg,#DF87B0,#F6B1D5)';this.removeAttribute('src')">
       <div class="absolute -bottom-6 -left-6 bg-pink-deep text-white p-6 rounded-2xl shadow-xl max-w-[220px]">
@@ -234,25 +115,27 @@
       </p>
     </div>
 
-    <!-- 6-image gallery. Drop your jpgs at /assets/gallery-1.jpg through gallery-6.jpg -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="assets/gallery-1.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/735e7add-92c5-4a8e-5911-268230853d00/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="assets/gallery-2.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/d331ee61-aa51-490e-6b3e-be4c3b334000/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="assets/gallery-3.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/20f7b856-92bd-487d-96ab-1c5c8b35e300/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="assets/gallery-4.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/4b39314f-deae-4385-0e64-9f329cb94300/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="assets/gallery-5.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/b3771f34-279a-4a90-8ebe-61d509014800/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="assets/gallery-6.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/c0431f13-61e0-4385-baec-21740118e800/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+      </div>
+      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/48493003-29d3-4895-6dc3-54db92733000/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
     </div>
   </div>
@@ -451,8 +334,7 @@
       </div>
     </div>
     <div class="order-1 md:order-2">
-      <!-- Drop your portrait at /assets/founder.jpg -->
-      <img src="assets/founder.jpg" alt="Mecca Clarke"
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/271019e2-afea-4be0-3c0f-6d034a847200/public" alt="Mecca Clarke"
            class="w-full aspect-[4/5] object-cover rounded-2xl shadow-xl"
            onerror="this.style.background='linear-gradient(135deg,#F6B1D5,#DF87B0)';this.removeAttribute('src')">
     </div>
@@ -582,7 +464,7 @@
 <footer class="bg-cream border-t border-pink-deep/20 py-10">
   <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
     <div class="flex items-center gap-3">
-      <img src="assets/logo-submark.png" alt="" class="h-10 w-10 rounded-full" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="" class="h-10 w-10 rounded-full" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
       <span class="submark-fallback" style="display:none;width:40px;height:40px;font-size:0.95rem">BGS</span>
       <span class="font-display text-lg text-ink">Blk Girls Shoot</span>
     </div>
@@ -596,32 +478,7 @@
   </div>
 </footer>
 
-<script>
-  /* Before/after slider — vanilla JS, no deps */
-  (function(){
-    const wrap = document.getElementById('ba');
-    const handle = document.getElementById('ba-handle');
-    if (!wrap || !handle) return;
-    const after = wrap.querySelector('.ba-after');
-    let dragging = false;
-
-    function setPos(clientX) {
-      const rect = wrap.getBoundingClientRect();
-      let pct = ((clientX - rect.left) / rect.width) * 100;
-      pct = Math.max(0, Math.min(100, pct));
-      handle.style.left = pct + '%';
-      after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-    }
-
-    handle.addEventListener('mousedown', () => dragging = true);
-    handle.addEventListener('touchstart', () => dragging = true);
-    document.addEventListener('mouseup', () => dragging = false);
-    document.addEventListener('touchend', () => dragging = false);
-    document.addEventListener('mousemove', e => dragging && setPos(e.clientX));
-    document.addEventListener('touchmove', e => dragging && setPos(e.touches[0].clientX));
-    wrap.addEventListener('click', e => setPos(e.clientX));
-  })();
-</script>
+<script src="assets/js/slider.js" defer></script>
 
 </body>
 </html>

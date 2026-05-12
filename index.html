@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ========================================================== -->
+<!-- EDIT BLOCK 1 — META / SEO                                    -->
+<!-- Change these for browser tabs, link previews, Google search. -->
+<!-- ========================================================== -->
+<title>Blk Girls Shoot 2026 — Sept 5–7</title>
+<meta name="description" content="The 2026 Blk Girls Shoot campaign + community weekend. Three days of imagery, sisterhood, and storytelling. Sept 5–7, 2026." />
+<meta property="og:title" content="Blk Girls Shoot 2026" />
+<meta property="og:description" content="Three days. One campaign. A community of Black women in front of and behind the lens." />
+<meta property="og:type" content="website" />
+
+<!-- Fonts: Poppins (body) + DM Serif Display (Kind Avenue stand-in).
+     If you license Kind Avenue, drop the .woff2 in /assets/fonts/ and
+     swap the --font-display variable in EDIT BLOCK 2 below. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* ========================================================== */
+  /* EDIT BLOCK 2 — BRAND TOKENS                                  */
+  /* Colors + fonts. Locked to BGS brand kit by Jaylin Graphics.  */
+  /* Change the hex codes here to recolor the entire site.        */
+  /* ========================================================== */
+  :root {
+    --pink-deep:    #DF87B0;   /* primary */
+    --pink-soft:    #F6B1D5;   /* accent */
+    --black:        #0A0A0A;
+    --cream:        #FBF6F2;   /* off-white background */
+    --ink:          #1A1A1A;
+    --font-display: 'DM Serif Display', 'Kind Avenue', Georgia, serif;
+    --font-body:    'Poppins', system-ui, -apple-system, sans-serif;
+  }
+
+  /* ---- base ---- */
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  .font-body    { font-family: var(--font-body); }
+
+  /* ---- color utilities ---- */
+  .bg-pink-deep  { background: var(--pink-deep); }
+  .bg-pink-soft  { background: var(--pink-soft); }
+  .bg-cream      { background: var(--cream); }
+  .bg-ink        { background: var(--ink); }
+  .text-pink-deep { color: var(--pink-deep); }
+  .text-pink-soft { color: var(--pink-soft); }
+  .text-cream     { color: var(--cream); }
+  .text-ink       { color: var(--ink); }
+  .border-pink-deep { border-color: var(--pink-deep); }
+
+  /* ---- buttons ---- */
+  .btn-primary {
+    display: inline-block;
+    background: var(--pink-deep);
+    color: white;
+    padding: 0.95rem 2rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border-radius: 999px;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-block;
+    border: 2px solid var(--pink-deep);
+    color: var(--pink-deep);
+    padding: 0.85rem 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border-radius: 999px;
+    transition: all .15s ease;
+  }
+  .btn-ghost:hover { background: var(--pink-deep); color: white; }
+
+  /* ---- gallery hover ---- */
+  .gallery-img {
+    transition: transform .4s ease, filter .4s ease;
+    filter: saturate(1.05);
+  }
+  .gallery-img:hover { transform: scale(1.03); filter: saturate(1.2) brightness(1.05); }
+
+  /* ---- before/after slider ---- */
+  .ba-wrap { position: relative; overflow: hidden; border-radius: 12px; user-select: none; }
+  .ba-wrap img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .ba-after { position: absolute; inset: 0; clip-path: inset(0 50% 0 0); }
+  .ba-handle {
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 3px; background: var(--pink-soft); cursor: ew-resize;
+    transform: translateX(-50%);
+  }
+  .ba-handle::before {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    width: 44px; height: 44px; border-radius: 999px;
+    background: var(--pink-deep); transform: translate(-50%, -50%);
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  }
+  .ba-handle::after {
+    content: '⇄'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); color: white; font-size: 1.1rem; font-weight: bold;
+  }
+
+  /* ---- FAQ accordion ---- */
+  details summary { list-style: none; cursor: pointer; }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .faq-icon { transform: rotate(45deg); }
+  .faq-icon { transition: transform .2s ease; display: inline-block; }
+
+  /* ---- form inputs ---- */
+  .field {
+    width: 100%; padding: 0.9rem 1.1rem;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(246,177,213,.3);
+    border-radius: 8px; color: white;
+    transition: border-color .15s ease;
+  }
+  .field:focus { outline: none; border-color: var(--pink-soft); background: rgba(255,255,255,.12); }
+  .field::placeholder { color: rgba(255,255,255,.45); }
+
+  /* ---- logo submark ---- */
+  .submark-fallback {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border-radius: 999px;
+    background: var(--pink-deep); color: white;
+    font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- 1. STICKY HEADER                                              -->
+<!-- EDIT BLOCK 3 — Replace logo PNG + CTA destination             -->
+<!-- ============================================================ -->
+<header class="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-pink-deep/20">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3">
+      <!-- Drop your submark PNG at /assets/logo-submark.png to replace this fallback -->
+      <img src="assets/logo-submark.png" alt="BGS"
+           class="h-12 w-12 rounded-full"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+      <span class="submark-fallback" style="display:none">BGS</span>
+      <span class="font-display text-xl text-ink hidden sm:inline">Blk Girls Shoot</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-ink/80">
+      <a href="#about" class="hover:text-pink-deep">About</a>
+      <a href="#experience" class="hover:text-pink-deep">Experience</a>
+      <a href="#schedule" class="hover:text-pink-deep">Schedule</a>
+      <a href="#faq" class="hover:text-pink-deep">FAQ</a>
+    </nav>
+    <a href="#rsvp" class="btn-primary">RSVP</a>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- 2. HERO                                                       -->
+<!-- EDIT BLOCK 4 — Headline, dates, tagline, hero image           -->
+<!-- ============================================================ -->
+<section id="top" class="relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-pink-soft/30 via-cream to-cream"></div>
+  <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-5">
+        <!-- EDIT: event eyebrow -->
+        September 5–7, 2026 · Atlanta, GA
+      </p>
+      <h1 class="font-display text-5xl md:text-7xl leading-[0.95] text-ink mb-6">
+        <!-- EDIT: hero headline (2 lines reads best) -->
+        Three days. <br>
+        <span class="text-pink-deep">One sisterhood.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-ink/70 mb-9 max-w-md">
+        <!-- EDIT: hero subhead, 1–2 sentences -->
+        Blk Girls Shoot 2026 is a hybrid campaign shoot + community weekend
+        celebrating Black women in front of and behind the lens.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#rsvp" class="btn-primary">Reserve your spot</a>
+        <a href="#about" class="btn-ghost">Learn more</a>
+      </div>
+      <div class="mt-10 flex items-center gap-6 text-sm text-ink/60">
+        <!-- EDIT: trust strip (past stats, press, partners) -->
+        <span>✦ 200+ creatives</span>
+        <span>✦ 3 cities</span>
+        <span>✦ 5 years strong</span>
+      </div>
+    </div>
+    <div class="relative">
+      <!-- Drop hero photo at /assets/hero.jpg -->
+      <img src="assets/hero.jpg" alt="Blk Girls Shoot campaign image"
+           class="w-full h-[520px] object-cover rounded-2xl shadow-2xl"
+           onerror="this.style.background='linear-gradient(135deg,#DF87B0,#F6B1D5)';this.removeAttribute('src')">
+      <div class="absolute -bottom-6 -left-6 bg-pink-deep text-white p-6 rounded-2xl shadow-xl max-w-[220px]">
+        <p class="font-display text-3xl leading-none">2026</p>
+        <p class="text-xs uppercase tracking-widest mt-1 opacity-90">The Campaign</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 3. ABOUT / OUR WORK GALLERY                                   -->
+<!-- EDIT BLOCK 5 — Gallery photos + about copy                    -->
+<!-- ============================================================ -->
+<section id="about" class="py-20 md:py-28 bg-cream">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-14">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">The Work</p>
+      <h2 class="font-display text-4xl md:text-5xl text-ink mb-5">
+        <!-- EDIT: section headline -->
+        Imagery that doesn't ask permission to exist.
+      </h2>
+      <p class="text-lg text-ink/70">
+        <!-- EDIT: about paragraph -->
+        Every year we gather Black women — models, photographers, stylists, storytellers — to make
+        the kind of pictures the industry tells us aren't commercial. They are. We've been proving it.
+      </p>
+    </div>
+
+    <!-- 6-image gallery. Drop your jpgs at /assets/gallery-1.jpg through gallery-6.jpg -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
+        <img src="assets/gallery-1.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+      </div>
+      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
+        <img src="assets/gallery-2.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+      </div>
+      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
+        <img src="assets/gallery-3.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+      </div>
+      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
+        <img src="assets/gallery-4.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+      </div>
+      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
+        <img src="assets/gallery-5.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+      </div>
+      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
+        <img src="assets/gallery-6.jpg" alt="" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 4. THE EXPERIENCE — 3 event pillars                           -->
+<!-- EDIT BLOCK 6 — Pillar titles + descriptions                   -->
+<!-- ============================================================ -->
+<section id="experience" class="py-20 md:py-28 bg-pink-soft/20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">What to Expect</p>
+      <h2 class="font-display text-4xl md:text-5xl text-ink max-w-2xl mx-auto">
+        Three days, three pillars.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Pillar 1 -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow">
+        <div class="w-14 h-14 rounded-full bg-pink-deep text-white font-display text-2xl flex items-center justify-center mb-5">01</div>
+        <h3 class="font-display text-2xl text-ink mb-3"><!-- EDIT -->The Campaign Shoot</h3>
+        <p class="text-ink/70">
+          <!-- EDIT: pillar 1 description -->
+          A full production day with our creative team — wardrobe, hair, makeup, and a directed shoot
+          for the 2026 campaign that lives across our site, prints, and partner brands.
+        </p>
+      </div>
+      <!-- Pillar 2 -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow">
+        <div class="w-14 h-14 rounded-full bg-pink-deep text-white font-display text-2xl flex items-center justify-center mb-5">02</div>
+        <h3 class="font-display text-2xl text-ink mb-3"><!-- EDIT -->The Community Day</h3>
+        <p class="text-ink/70">
+          <!-- EDIT: pillar 2 description -->
+          Workshops, panels, and conversations led by Black women working in fashion, editorial,
+          and commercial photography. Open to all attendees.
+        </p>
+      </div>
+      <!-- Pillar 3 -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow">
+        <div class="w-14 h-14 rounded-full bg-pink-deep text-white font-display text-2xl flex items-center justify-center mb-5">03</div>
+        <h3 class="font-display text-2xl text-ink mb-3"><!-- EDIT -->The Send-Off</h3>
+        <p class="text-ink/70">
+          <!-- EDIT: pillar 3 description -->
+          A closing dinner + screening of behind-the-scenes footage. Where the campaign becomes a
+          memory and the community keeps going.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 5. BEFORE / AFTER — Behind the scenes vs. final               -->
+<!-- EDIT BLOCK 7 — Replace the two images                         -->
+<!-- ============================================================ -->
+<section class="py-20 md:py-28 bg-cream">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Behind the Lens</p>
+      <h2 class="font-display text-4xl md:text-5xl text-ink">From set to story.</h2>
+      <p class="text-ink/70 mt-4 max-w-xl mx-auto">Drag the handle to see what the day looks like before the camera, and what it becomes after.</p>
+    </div>
+
+    <!-- Drop /assets/ba-before.jpg and /assets/ba-after.jpg -->
+    <div class="ba-wrap aspect-[16/10] bg-pink-soft/30" id="ba">
+      <img src="assets/ba-before.jpg" alt="Behind the scenes" onerror="this.style.opacity=0.3">
+      <div class="ba-after">
+        <img src="assets/ba-after.jpg" alt="Final image" onerror="this.style.opacity=0.6">
+      </div>
+      <div class="ba-handle" id="ba-handle"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 6. WHY ATTEND — 4 checkmark benefits, dark section            -->
+<!-- EDIT BLOCK 8 — Replace the 4 benefit items                    -->
+<!-- ============================================================ -->
+<section class="py-20 md:py-28 bg-ink text-cream">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div>
+        <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-4">Why Attend</p>
+        <h2 class="font-display text-4xl md:text-5xl mb-5">More than a shoot.<br>A studio you belong to.</h2>
+        <p class="text-cream/70 text-lg max-w-md">
+          <!-- EDIT: why-attend supporting copy -->
+          BGS is where Black women find their visual collaborators, sharpen their craft, and leave with
+          imagery they're proud to put their name on.
+        </p>
+      </div>
+      <ul class="space-y-5">
+        <!-- EDIT: each benefit, 1 line is best -->
+        <li class="flex gap-4">
+          <span class="text-pink-soft text-2xl leading-none">✓</span>
+          <div>
+            <h4 class="font-semibold mb-1">A campaign-grade portfolio image</h4>
+            <p class="text-cream/60 text-sm">Walk away with editorial-level work shot by a Black woman behind the lens.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="text-pink-soft text-2xl leading-none">✓</span>
+          <div>
+            <h4 class="font-semibold mb-1">Access to working creatives</h4>
+            <p class="text-cream/60 text-sm">Photographers, stylists, MUAs, and directors — all in one room, all weekend.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="text-pink-soft text-2xl leading-none">✓</span>
+          <div>
+            <h4 class="font-semibold mb-1">A community that doesn't disappear Monday</h4>
+            <p class="text-cream/60 text-sm">You leave with relationships, a Slack, and a directory that keeps working.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="text-pink-soft text-2xl leading-none">✓</span>
+          <div>
+            <h4 class="font-semibold mb-1">Press, partner, and brand visibility</h4>
+            <p class="text-cream/60 text-sm">Selected work runs in our 2026 partner campaigns and editorial features.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 7. WHAT'S INCLUDED — two ticket tiers                         -->
+<!-- EDIT BLOCK 9 — Tier names, prices, what's included            -->
+<!-- ============================================================ -->
+<section id="schedule" class="py-20 md:py-28 bg-cream">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Passes</p>
+      <h2 class="font-display text-4xl md:text-5xl text-ink">Two ways to be in the room.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Tier 1 -->
+      <div class="bg-white p-10 rounded-2xl border border-pink-deep/20">
+        <p class="text-pink-deep font-semibold tracking-widest text-xs uppercase mb-3">Community Pass</p>
+        <h3 class="font-display text-4xl text-ink mb-2"><!-- EDIT price -->$<span>—</span></h3>
+        <p class="text-ink/60 mb-7 text-sm">Full weekend access · Community Day + Send-Off</p>
+        <ul class="space-y-3 text-ink/80 text-sm">
+          <!-- EDIT: include items -->
+          <li class="flex gap-3"><span class="text-pink-deep">✓</span> All workshops and panels</li>
+          <li class="flex gap-3"><span class="text-pink-deep">✓</span> Closing dinner + screening</li>
+          <li class="flex gap-3"><span class="text-pink-deep">✓</span> BGS welcome kit</li>
+          <li class="flex gap-3"><span class="text-pink-deep">✓</span> Community directory access</li>
+        </ul>
+      </div>
+      <!-- Tier 2 -->
+      <div class="bg-pink-deep text-white p-10 rounded-2xl relative overflow-hidden">
+        <span class="absolute top-5 right-5 bg-white text-pink-deep text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Limited</span>
+        <p class="font-semibold tracking-widest text-xs uppercase mb-3 opacity-90">Creative Pass</p>
+        <h3 class="font-display text-4xl mb-2"><!-- EDIT price -->$<span>—</span></h3>
+        <p class="mb-7 text-sm opacity-90">Everything in Community + shoot day spot</p>
+        <ul class="space-y-3 text-sm">
+          <li class="flex gap-3"><span>✓</span> Full Community Pass benefits</li>
+          <li class="flex gap-3"><span>✓</span> On-set for the campaign shoot</li>
+          <li class="flex gap-3"><span>✓</span> Hair, makeup, and styling</li>
+          <li class="flex gap-3"><span>✓</span> High-res campaign images</li>
+          <li class="flex gap-3"><span>✓</span> Feature in 2026 campaign release</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 8. MEET MECCA — Founder story, split layout                   -->
+<!-- EDIT BLOCK 10 — Portrait + story copy                         -->
+<!-- ============================================================ -->
+<section class="py-20 md:py-28 bg-pink-soft/20">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <div class="order-2 md:order-1">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Meet Mecca</p>
+      <h2 class="font-display text-4xl md:text-5xl text-ink mb-6">
+        <!-- EDIT: founder section headline -->
+        I built BGS because I needed it to exist.
+      </h2>
+      <div class="space-y-4 text-ink/75 text-lg">
+        <!-- EDIT: founder story, 2–3 short paragraphs -->
+        <p>
+          I'm Mecca Clarke — photographer, founder, and the person who started Blk Girls Shoot after one too
+          many shoots where I was the only one in the room.
+        </p>
+        <p>
+          What began as a single afternoon in 2021 has become a hybrid campaign + community that brings together
+          hundreds of Black women creatives every year. The work keeps growing because the need keeps showing up.
+        </p>
+        <p>
+          2026 is our biggest year yet. I'd love to have you in it.
+        </p>
+      </div>
+    </div>
+    <div class="order-1 md:order-2">
+      <!-- Drop your portrait at /assets/founder.jpg -->
+      <img src="assets/founder.jpg" alt="Mecca Clarke"
+           class="w-full aspect-[4/5] object-cover rounded-2xl shadow-xl"
+           onerror="this.style.background='linear-gradient(135deg,#F6B1D5,#DF87B0)';this.removeAttribute('src')">
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 9. FAQ — 8 accordion questions                                -->
+<!-- EDIT BLOCK 11 — Questions + answers                           -->
+<!-- ============================================================ -->
+<section id="faq" class="py-20 md:py-28 bg-cream">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">FAQ</p>
+      <h2 class="font-display text-4xl md:text-5xl text-ink">Asked and answered.</h2>
+    </div>
+
+    <div class="space-y-3">
+      <!-- EDIT: each FAQ — duplicate or remove blocks as needed -->
+      <details class="bg-white rounded-xl p-6 border border-pink-deep/10">
+        <summary class="flex justify-between items-center font-semibold text-ink">
+          <span>Who is Blk Girls Shoot for?</span>
+          <span class="faq-icon text-pink-deep text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-ink/70">Black women at every stage — whether you've never been in front of a camera or you've been shooting professionally for ten years. There's a place for you here.</p>
+      </details>
+
+      <details class="bg-white rounded-xl p-6 border border-pink-deep/10">
+        <summary class="flex justify-between items-center font-semibold text-ink">
+          <span>Where is the event held?</span>
+          <span class="faq-icon text-pink-deep text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-ink/70">Atlanta, GA. The exact venue is shared with confirmed attendees about 30 days before the event.</p>
+      </details>
+
+      <details class="bg-white rounded-xl p-6 border border-pink-deep/10">
+        <summary class="flex justify-between items-center font-semibold text-ink">
+          <span>Is travel and lodging included?</span>
+          <span class="faq-icon text-pink-deep text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-ink/70">Not in the base pass. We send a partner hotel block with a discounted rate to all confirmed attendees.</p>
+      </details>
+
+      <details class="bg-white rounded-xl p-6 border border-pink-deep/10">
+        <summary class="flex justify-between items-center font-semibold text-ink">
+          <span>Do I need to be a model to attend?</span>
+          <span class="faq-icon text-pink-deep text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-ink/70">No. The Community Pass is built for non-models — creatives, photographers, stylists, writers, and the merely curious.</p>
+      </details>
+
+      <details class="bg-white rounded-xl p-6 border border-pink-deep/10">
+        <summary class="flex justify-between items-center font-semibold text-ink">
+          <span>What's the refund policy?</span>
+          <span class="faq-icon text-pink-deep text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-ink/70">Full refunds up to 60 days before the event. After that, your pass is transferable.</p>
+      </details>
+
+      <details class="bg-white rounded-xl p-6 border border-pink-deep/10">
+        <summary class="flex justify-between items-center font-semibold text-ink">
+          <span>Can I sponsor or partner with BGS?</span>
+          <span class="faq-icon text-pink-deep text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-ink/70">Yes. Reach out via the form below and we'll send the partner deck.</p>
+      </details>
+
+      <details class="bg-white rounded-xl p-6 border border-pink-deep/10">
+        <summary class="flex justify-between items-center font-semibold text-ink">
+          <span>How are Creative Pass attendees selected?</span>
+          <span class="faq-icon text-pink-deep text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-ink/70">Creative Pass is limited. We review applications on a rolling basis to make sure the cohort represents a range of looks, styles, and stories.</p>
+      </details>
+
+      <details class="bg-white rounded-xl p-6 border border-pink-deep/10">
+        <summary class="flex justify-between items-center font-semibold text-ink">
+          <span>I have another question.</span>
+          <span class="faq-icon text-pink-deep text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-ink/70">Drop it in the form below — we read everything.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 10. RSVP FORM                                                 -->
+<!-- EDIT BLOCK 12 — Form action / replace with Eventbrite/Tally   -->
+<!--                                                               -->
+<!-- The form below uses a generic mailto fallback. To wire it up: -->
+<!-- (a) Replace the <form action="..."> with your Tally / Typeform-->
+<!--     /Eventbrite endpoint, OR                                  -->
+<!-- (b) Replace this whole section with their embed snippet.      -->
+<!-- ============================================================ -->
+<section id="rsvp" class="py-20 md:py-28 bg-ink text-cream">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-4">RSVP</p>
+      <h2 class="font-display text-4xl md:text-5xl mb-4">Save your seat.</h2>
+      <p class="text-cream/70 max-w-lg mx-auto">Drop your info and we'll send the registration link, hotel block, and a save-the-date.</p>
+    </div>
+
+    <form action="mailto:meccaclarkepro@gmail.com" method="POST" enctype="text/plain" class="space-y-4">
+      <div class="grid md:grid-cols-2 gap-4">
+        <input type="text" name="name" placeholder="Your name" required class="field">
+        <input type="email" name="email" placeholder="Email" required class="field">
+      </div>
+      <input type="tel" name="phone" placeholder="Phone (optional)" class="field">
+      <select name="pass" class="field">
+        <option value="" disabled selected style="color:#000">I'm interested in...</option>
+        <option value="community" style="color:#000">Community Pass</option>
+        <option value="creative" style="color:#000">Creative Pass (limited)</option>
+        <option value="partner" style="color:#000">Partner / sponsor</option>
+        <option value="unsure" style="color:#000">Not sure yet</option>
+      </select>
+      <textarea name="message" placeholder="Anything you'd like us to know? (optional)" rows="4" class="field"></textarea>
+      <button type="submit" class="btn-primary w-full md:w-auto">Send my info</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 11. FOOTER                                                    -->
+<!-- EDIT BLOCK 13 — Socials, legal links                          -->
+<!-- ============================================================ -->
+<footer class="bg-cream border-t border-pink-deep/20 py-10">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo-submark.png" alt="" class="h-10 w-10 rounded-full" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+      <span class="submark-fallback" style="display:none;width:40px;height:40px;font-size:0.95rem">BGS</span>
+      <span class="font-display text-lg text-ink">Blk Girls Shoot</span>
+    </div>
+    <div class="flex gap-6 text-sm text-ink/70">
+      <!-- EDIT: socials + legal -->
+      <a href="https://instagram.com/blkgirlsshoot" class="hover:text-pink-deep">Instagram</a>
+      <a href="#" class="hover:text-pink-deep">Press kit</a>
+      <a href="#" class="hover:text-pink-deep">Contact</a>
+    </div>
+    <p class="text-xs text-ink/50">© 2026 Blk Girls Shoot. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  /* Before/after slider — vanilla JS, no deps */
+  (function(){
+    const wrap = document.getElementById('ba');
+    const handle = document.getElementById('ba-handle');
+    if (!wrap || !handle) return;
+    const after = wrap.querySelector('.ba-after');
+    let dragging = false;
+
+    function setPos(clientX) {
+      const rect = wrap.getBoundingClientRect();
+      let pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      handle.style.left = pct + '%';
+      after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    }
+
+    handle.addEventListener('mousedown', () => dragging = true);
+    handle.addEventListener('touchstart', () => dragging = true);
+    document.addEventListener('mouseup', () => dragging = false);
+    document.addEventListener('touchend', () => dragging = false);
+    document.addEventListener('mousemove', e => dragging && setPos(e.clientX));
+    document.addEventListener('touchmove', e => dragging && setPos(e.touches[0].clientX));
+    wrap.addEventListener('click', e => setPos(e.clientX));
+  })();
+</script>
+
+</body>
+</html>

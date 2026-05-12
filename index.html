@@ -44,7 +44,7 @@
     <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-ink/80">
       <a href="#about" class="hover:text-pink-deep">About</a>
       <a href="#experience" class="hover:text-pink-deep">Experience</a>
-      <a href="#schedule" class="hover:text-pink-deep">Schedule</a>
+      <!-- <a href="#schedule" class="hover:text-pink-deep">Schedule</a> -->
       <a href="#faq" class="hover:text-pink-deep">FAQ</a>
     </nav>
     <a href="#rsvp" class="btn-primary">RSVP</a>
@@ -190,9 +190,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- 5. BEFORE / AFTER — Behind the scenes vs. final               -->
-<!-- EDIT BLOCK 7 — Replace the two images                         -->
+<!-- 5. BEFORE / AFTER — TEMPORARILY HIDDEN.                       -->
+<!-- To restore, remove the surrounding <template> tags.           -->
 <!-- ============================================================ -->
+<template id="section-before-after">
 <section class="py-20 md:py-28 bg-cream">
   <div class="max-w-5xl mx-auto px-6">
     <div class="text-center mb-12">
@@ -201,7 +202,6 @@
       <p class="text-ink/70 mt-4 max-w-xl mx-auto">Drag the handle to see what the day looks like before the camera, and what it becomes after.</p>
     </div>
 
-    <!-- Drop /assets/ba-before.jpg and /assets/ba-after.jpg -->
     <div class="ba-wrap aspect-[16/10] bg-pink-soft/30" id="ba">
       <img src="assets/ba-before.jpg" alt="Behind the scenes" onerror="this.style.opacity=0.3">
       <div class="ba-after">
@@ -211,6 +211,7 @@
     </div>
   </div>
 </section>
+</template>
 
 <!-- ============================================================ -->
 <!-- 6. WHY ATTEND — 4 checkmark benefits, dark section            -->
@@ -264,9 +265,11 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- 7. WHAT'S INCLUDED — two ticket tiers                         -->
-<!-- EDIT BLOCK 9 — Tier names, prices, what's included            -->
+<!-- 7. WHAT'S INCLUDED — TEMPORARILY HIDDEN.                      -->
+<!-- To restore, remove the surrounding <template> tags AND        -->
+<!-- uncomment the "Schedule" nav link in the header.              -->
 <!-- ============================================================ -->
+<template id="section-pricing">
 <section id="schedule" class="py-20 md:py-28 bg-cream">
   <div class="max-w-6xl mx-auto px-6">
     <div class="text-center mb-14">
@@ -275,24 +278,21 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-6">
-      <!-- Tier 1 -->
       <div class="bg-white p-10 rounded-2xl border border-pink-deep/20">
         <p class="text-pink-deep font-semibold tracking-widest text-xs uppercase mb-3">Community Pass</p>
-        <h3 class="font-display text-4xl text-ink mb-2"><!-- EDIT price -->$<span>—</span></h3>
+        <h3 class="font-display text-4xl text-ink mb-2">$<span>—</span></h3>
         <p class="text-ink/60 mb-7 text-sm">Full weekend access · Community Day + Send-Off</p>
         <ul class="space-y-3 text-ink/80 text-sm">
-          <!-- EDIT: include items -->
           <li class="flex gap-3"><span class="text-pink-deep">✓</span> All workshops and panels</li>
           <li class="flex gap-3"><span class="text-pink-deep">✓</span> Closing dinner + screening</li>
           <li class="flex gap-3"><span class="text-pink-deep">✓</span> BGS welcome kit</li>
           <li class="flex gap-3"><span class="text-pink-deep">✓</span> Community directory access</li>
         </ul>
       </div>
-      <!-- Tier 2 -->
       <div class="bg-pink-deep text-white p-10 rounded-2xl relative overflow-hidden">
         <span class="absolute top-5 right-5 bg-white text-pink-deep text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Limited</span>
         <p class="font-semibold tracking-widest text-xs uppercase mb-3 opacity-90">Creative Pass</p>
-        <h3 class="font-display text-4xl mb-2"><!-- EDIT price -->$<span>—</span></h3>
+        <h3 class="font-display text-4xl mb-2">$<span>—</span></h3>
         <p class="mb-7 text-sm opacity-90">Everything in Community + shoot day spot</p>
         <ul class="space-y-3 text-sm">
           <li class="flex gap-3"><span>✓</span> Full Community Pass benefits</li>
@@ -305,6 +305,7 @@
     </div>
   </div>
 </section>
+</template>
 
 <!-- ============================================================ -->
 <!-- 8. MEET MECCA — Founder story, split layout                   -->

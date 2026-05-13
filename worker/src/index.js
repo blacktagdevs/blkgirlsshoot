@@ -30,7 +30,7 @@ export default {
 
     const custom_fields = {};
     if (body.phone) custom_fields.phone = String(body.phone).slice(0, 32);
-    if (body.pass) custom_fields.pass_interest = String(body.pass).slice(0, 64);
+    if (body.pass) custom_fields.passInterest = String(body.pass).slice(0, 64);
     if (body.message) custom_fields.message = String(body.message).slice(0, 2000);
 
     const payload = {

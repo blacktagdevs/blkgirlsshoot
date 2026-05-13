@@ -1,0 +1,11 @@
+name = "bgs-rsvp"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# Secrets (set via `npx wrangler secret put <NAME>`):
+#   FLODESK_API_KEY     — from Flodesk → Settings → Integrations → Flodesk API
+#   FLODESK_SEGMENT_ID  — the segment ID to add subscribers to
+
+# Optional: lock CORS to the production origin once the site is live.
+[vars]
+ALLOWED_ORIGIN = "https://blkgirlsshoot.net"

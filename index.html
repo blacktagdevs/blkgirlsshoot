@@ -441,7 +441,7 @@
       <p class="text-cream/70 max-w-lg mx-auto">Drop your info and we'll send the registration link, hotel block, and a save-the-date.</p>
     </div>
 
-    <form action="mailto:meccaclarkepro@gmail.com" method="POST" enctype="text/plain" class="space-y-4">
+    <form id="rsvp-form" data-endpoint="https://bgs-rsvp.meccaclarkepro.workers.dev" class="space-y-4">
       <div class="grid md:grid-cols-2 gap-4">
         <input type="text" name="name" placeholder="Your name" required class="field">
         <input type="email" name="email" placeholder="Email" required class="field">
@@ -456,7 +456,9 @@
       </select>
       <textarea name="message" placeholder="Anything you'd like us to know? (optional)" rows="4" class="field"></textarea>
       <button type="submit" class="btn-primary w-full md:w-auto">Send my info</button>
+      <p id="rsvp-status" class="text-sm min-h-[1.25rem]" role="status" aria-live="polite"></p>
     </form>
+    <script src="assets/js/rsvp.js" defer></script>
   </div>
 </section>
 

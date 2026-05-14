@@ -1,9 +1,14 @@
 (function () {
   const form = document.getElementById('rsvp-form');
+  const successEl = document.getElementById('rsvp-success');
   if (!form) return;
   const endpoint = form.dataset.endpoint;
   const button = form.querySelector('button[type="submit"]');
   const status = document.getElementById('rsvp-status');
+
+  if (sessionStorage.getItem('bgs-rsvp-submitted')) {
+    showSuccess();
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -25,15 +30,19 @@
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error((await res.json()).error || 'Request failed');
-      form.reset();
-      setStatus("You're in. We'll be in touch.", false);
+      sessionStorage.setItem('bgs-rsvp-submitted', '1');
+      showSuccess();
     } catch (err) {
-      setStatus(err.message || 'Something went wrong. Try again?', true);
-    } finally {
       button.disabled = false;
       button.textContent = original;
+      setStatus(err.message || 'Something went wrong. Try again?', true);
     }
   });
+
+  function showSuccess() {
+    form.style.display = 'none';
+    if (successEl) successEl.classList.remove('hidden');
+  }
 
   function setStatus(text, isError) {
     if (!status) return;

@@ -1,4 +1,5 @@
-const FLODESK_API = 'https://api.flodesk.com/v1';
+const KLAVIYO_API = 'https://a.klaviyo.com/api';
+const KLAVIYO_REVISION = '2026-04-15';
 
 export default {
   async fetch(request, env) {
@@ -28,34 +29,83 @@ export default {
     const [first_name, ...rest] = name.split(/\s+/);
     const last_name = rest.join(' ');
 
-    const custom_fields = {};
-    if (body.phone) custom_fields.phone = String(body.phone).slice(0, 32);
-    if (body.pass) custom_fields.passInterest = String(body.pass).slice(0, 64);
-    if (body.message) custom_fields.message = String(body.message).slice(0, 2000);
+    const phone_number = normalizePhone(body.phone);
+    const properties = { source: 'blkgirlsshoot.net' };
+    if (body.phone && !phone_number) properties.phone_raw = String(body.phone).slice(0, 32);
+    if (body.message) properties.message = String(body.message).slice(0, 2000);
 
-    const payload = {
-      email,
-      first_name: first_name || undefined,
-      last_name: last_name || undefined,
-      segment_ids: [env.FLODESK_SEGMENT_ID],
-      ...(Object.keys(custom_fields).length ? { custom_fields } : {}),
+    const key = (env.KLAVIYO_API_KEY || '').trim();
+    const baseHeaders = {
+      Authorization: `Klaviyo-API-Key ${key}`,
+      'Content-Type': 'application/json',
+      accept: 'application/json',
+      revision: KLAVIYO_REVISION,
     };
 
-    const key = (env.FLODESK_API_KEY || '').trim();
-    const auth = 'Basic ' + btoa(key + ':');
-
-    const fd = await fetch(`${FLODESK_API}/subscribers`, {
-      method: 'POST',
-      headers: {
-        Authorization: auth,
-        'Content-Type': 'application/json',
+    // 1) Upsert profile with custom data. 409 = already exists, treat as success.
+    const profileBody = {
+      data: {
+        type: 'profile',
+        attributes: {
+          email,
+          ...(first_name ? { first_name } : {}),
+          ...(last_name ? { last_name } : {}),
+          ...(phone_number ? { phone_number } : {}),
+          properties,
+        },
       },
-      body: JSON.stringify(payload),
+    };
+
+    const profileRes = await fetch(`${KLAVIYO_API}/profiles/`, {
+      method: 'POST',
+      headers: baseHeaders,
+      body: JSON.stringify(profileBody),
     });
 
-    if (!fd.ok) {
-      const text = await fd.text();
-      console.error('Flodesk error', fd.status, text);
+    if (!profileRes.ok && profileRes.status !== 409) {
+      const text = await profileRes.text();
+      console.error('Klaviyo profile error', profileRes.status, text);
+      return reply({ error: 'Subscribe failed' }, 502, corsHeaders);
+    }
+
+    // 2) Subscribe to the list (idempotent — re-subscribing existing profile is fine).
+    const subBody = {
+      data: {
+        type: 'profile-subscription-bulk-create-job',
+        attributes: {
+          profiles: {
+            data: [
+              {
+                type: 'profile',
+                attributes: {
+                  email,
+                  subscriptions: {
+                    email: {
+                      marketing: { consent: 'SUBSCRIBED' },
+                    },
+                  },
+                },
+              },
+            ],
+          },
+        },
+        relationships: {
+          list: {
+            data: { type: 'list', id: env.KLAVIYO_LIST_ID },
+          },
+        },
+      },
+    };
+
+    const subRes = await fetch(`${KLAVIYO_API}/profile-subscription-bulk-create-jobs`, {
+      method: 'POST',
+      headers: baseHeaders,
+      body: JSON.stringify(subBody),
+    });
+
+    if (!subRes.ok) {
+      const text = await subRes.text();
+      console.error('Klaviyo subscribe error', subRes.status, text);
       return reply({ error: 'Subscribe failed' }, 502, corsHeaders);
     }
 
@@ -68,6 +118,16 @@ function reply(data, status, headers) {
     status,
     headers: { 'Content-Type': 'application/json', ...headers },
   });
+}
+
+// Best-effort E.164 normalizer, US-default. Returns null if the input
+// doesn't look like a phone number Klaviyo will accept.
+function normalizePhone(raw) {
+  const digits = String(raw || '').replace(/\D/g, '');
+  if (digits.length === 10) return '+1' + digits;
+  if (digits.length === 11 && digits.startsWith('1')) return '+' + digits;
+  if (digits.length >= 11 && digits.length <= 15) return '+' + digits;
+  return null;
 }
 
 function buildCors(origin, allowed) {

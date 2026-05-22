@@ -27,6 +27,48 @@
     transition: transform .2s ease, box-shadow .2s ease;
   }
   .metric-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(223,135,176,.18); }
+
+  /* Apply modal — pink dialog with form inside */
+  .apply-modal {
+    width: 92%; max-width: 760px; max-height: 88vh;
+    padding: 0; border: none; border-radius: 18px;
+    background: var(--pink-deep); color: white;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  }
+  .apply-modal::backdrop { background: rgba(10,10,10,.7); backdrop-filter: blur(2px); }
+  .apply-modal__scroll { padding: 2.25rem 2rem; max-height: 88vh; overflow-y: auto; }
+  .apply-modal__close {
+    position: absolute; top: .9rem; right: .9rem;
+    width: 36px; height: 36px; border: none; border-radius: 999px;
+    background: rgba(10,10,10,.18); color: white;
+    font-size: 1.25rem; line-height: 1; cursor: pointer; z-index: 2;
+    transition: background .15s ease;
+  }
+  .apply-modal__close:hover { background: rgba(10,10,10,.35); }
+  /* Field styling override inside the pink modal — white surface so inputs are legible */
+  .apply-modal .field {
+    background: white;
+    border: 1px solid rgba(10,10,10,.08);
+    color: var(--ink);
+  }
+  .apply-modal .field:focus { border-color: var(--ink); background: white; }
+  .apply-modal .field::placeholder { color: rgba(10,10,10,.4); }
+  /* Section eyebrows on pink */
+  .apply-modal .section-eyebrow {
+    color: white; opacity: .95;
+    border-bottom-color: rgba(255,255,255,.25);
+  }
+  .apply-modal label { color: rgba(255,255,255,.95); }
+  /* Submit button: white on pink for contrast inversion */
+  .apply-modal .btn-submit {
+    display: inline-block; background: white; color: var(--pink-deep);
+    padding: 0.95rem 2rem; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; font-size: 0.85rem; border-radius: 999px;
+    border: none; cursor: pointer;
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .apply-modal .btn-submit:hover { background: var(--ink); color: white; transform: translateY(-1px); }
 </style>
 </head>
 <body>
@@ -43,12 +85,13 @@
       <span class="submark-fallback" style="display:none;width:80px;height:80px;font-size:1.4rem">BGS</span>
     </a>
     <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-ink/80">
+      <a href="../" class="hover:text-pink-deep">Home</a>
       <a href="#about" class="hover:text-pink-deep">The Program</a>
       <a href="#phases" class="hover:text-pink-deep">Phases</a>
       <a href="#walkaway" class="hover:text-pink-deep">What You Get</a>
       <a href="#faq" class="hover:text-pink-deep">FAQ</a>
     </nav>
-    <a href="#apply" class="btn-primary">Apply</a>
+    <button type="button" data-open-apply class="btn-primary">Apply</button>
   </div>
 </header>
 
@@ -71,12 +114,12 @@
         and leave with a portfolio that does the talking for you.
       </p>
       <div class="flex flex-wrap gap-4">
-        <a href="#apply" class="btn-primary">Apply now</a>
+        <button type="button" data-open-apply class="btn-primary">Apply now</button>
         <a href="#about" class="btn-ghost">How it works</a>
       </div>
     </div>
     <div class="relative">
-      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/51755537-e96c-474c-6e97-f10798ab9000/public" alt="BGS Internship"
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/747cbba3-bac3-476b-9fa7-6f6e47fdc300/public" alt="BGS Internship"
            class="w-full h-[520px] object-cover rounded-2xl shadow-2xl"
            onerror="this.style.background='linear-gradient(135deg,#DF87B0,#F6B1D5)';this.removeAttribute('src')">
       <div class="absolute -bottom-6 -left-6 bg-pink-deep text-white p-6 rounded-2xl shadow-xl max-w-[220px]">
@@ -123,24 +166,18 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/735e7add-92c5-4a8e-5911-268230853d00/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/29aa9aed-b9c4-4d0d-d316-e5f5be6b1a00/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/d331ee61-aa51-490e-6b3e-be4c3b334000/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/18ee5e01-5126-4f56-c182-639925239d00/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/20f7b856-92bd-487d-96ab-1c5c8b35e300/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/6143d4ab-5e79-4c44-ae6c-ee5cdb986500/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
       <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/4b39314f-deae-4385-0e64-9f329cb94300/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
-      </div>
-      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/b3771f34-279a-4a90-8ebe-61d509014800/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
-      </div>
-      <div class="aspect-[4/5] bg-pink-soft/40 rounded-xl overflow-hidden">
-        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/c0431f13-61e0-4385-baec-21740118e800/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/f6eeefc8-ae7a-4856-2157-2b827a949200/public" alt="" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.display='none'">
       </div>
     </div>
   </div>
@@ -319,7 +356,7 @@
       </div>
     </div>
     <div class="order-1 md:order-2">
-      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/7d69d756-7f81-4dd4-0d86-d75110e81100/public" alt="Mecca Clarke"
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/8de2f46f-d775-4360-4a71-a59fc0c1a900/public" alt="Mecca Clarke"
            class="w-full aspect-[4/5] object-cover rounded-2xl shadow-xl"
            onerror="this.style.background='linear-gradient(135deg,#F6B1D5,#DF87B0)';this.removeAttribute('src')">
     </div>
@@ -413,122 +450,14 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- 9. APPLICATION FORM                                           -->
+<!-- 9. APPLY CTA — opens the modal below                          -->
 <!-- ============================================================ -->
-<section id="apply" class="py-12 md:py-16 bg-ink text-cream">
-  <div class="max-w-3xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-4">Apply</p>
-      <h2 class="font-display text-4xl md:text-5xl mb-4">Send us your shot.</h2>
-      <p class="text-cream/70 max-w-lg mx-auto">Fill this out and we'll be in touch within a week. Rolling applications until the cohort is full.</p>
-    </div>
-
-    <form action="mailto:info@blkgirlsshoot.net" method="POST" enctype="text/plain" class="space-y-10">
-
-      <div>
-        <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b border-pink-soft/20">Basic Information</p>
-        <div class="grid md:grid-cols-2 gap-4">
-          <input type="text" name="full_name" placeholder="Full name" required class="field">
-          <input type="number" name="age" placeholder="Age" required class="field">
-          <input type="email" name="email" placeholder="Email address" required class="field">
-          <input type="tel" name="phone" placeholder="Phone number" required class="field">
-          <input type="text" name="instagram" placeholder="Instagram handle" class="field">
-          <input type="text" name="tiktok" placeholder="TikTok handle (if applicable)" class="field">
-          <input type="text" name="city_state" placeholder="City &amp; State" required class="field md:col-span-2">
-        </div>
-        <div class="mt-5">
-          <p class="text-sm text-cream/75 mb-3">Are you currently in school, recently graduated, or self-employed?</p>
-          <div class="grid sm:grid-cols-2 gap-2">
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="status" value="Current student" required style="accent-color:#DF87B0"> Current student</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="status" value="Recent graduate" style="accent-color:#DF87B0"> Recent graduate</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="status" value="Self-employed/freelance" style="accent-color:#DF87B0"> Self-employed / freelance</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="status" value="Other" style="accent-color:#DF87B0"> Other</label>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b border-pink-soft/20">About You</p>
-        <textarea name="intro" rows="4" required class="field" placeholder="In 2–3 sentences, tell us who you are and why you're interested in Blk Girls Shoot."></textarea>
-
-        <div class="mt-5">
-          <p class="text-sm text-cream/75 mb-3">What areas are you most interested in? (Check all that apply)</p>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Content creation" style="accent-color:#DF87B0"> Content creation</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Reels/TikTok editing" style="accent-color:#DF87B0"> Reels / TikTok editing</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Graphic design" style="accent-color:#DF87B0"> Graphic design</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Social media management" style="accent-color:#DF87B0"> Social media management</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Email marketing" style="accent-color:#DF87B0"> Email marketing</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Community engagement" style="accent-color:#DF87B0"> Community engagement</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Copywriting/captions" style="accent-color:#DF87B0"> Copywriting / captions</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Event marketing" style="accent-color:#DF87B0"> Event marketing</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="interests" value="Analytics/reporting" style="accent-color:#DF87B0"> Analytics / reporting</label>
-          </div>
-        </div>
-
-        <div class="mt-5">
-          <p class="text-sm text-cream/75 mb-3">Have you ever helped market a brand, event, or business before?</p>
-          <div class="flex gap-6 mb-3">
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="experience" value="Yes" required style="accent-color:#DF87B0"> Yes</label>
-            <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="experience" value="No" style="accent-color:#DF87B0"> No</label>
-          </div>
-          <textarea name="experience_detail" rows="3" class="field" placeholder="If yes, briefly explain."></textarea>
-        </div>
-      </div>
-
-      <div>
-        <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b border-pink-soft/20">Content &amp; Creative Experience</p>
-
-        <p class="text-sm text-cream/75 mb-3">Which platforms are you most comfortable using? (Check all that apply)</p>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 mb-3">
-          <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="platforms" value="Instagram" style="accent-color:#DF87B0"> Instagram</label>
-          <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="platforms" value="TikTok" style="accent-color:#DF87B0"> TikTok</label>
-          <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="platforms" value="Canva" style="accent-color:#DF87B0"> Canva</label>
-          <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="platforms" value="CapCut" style="accent-color:#DF87B0"> CapCut</label>
-          <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="platforms" value="Flodesk/Klaviyo" style="accent-color:#DF87B0"> Flodesk / Klaviyo</label>
-          <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="platforms" value="Lightroom" style="accent-color:#DF87B0"> Lightroom</label>
-          <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="platforms" value="Google Drive" style="accent-color:#DF87B0"> Google Drive</label>
-          <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="checkbox" name="platforms" value="Notion" style="accent-color:#DF87B0"> Notion</label>
-        </div>
-        <input type="text" name="platforms_other" placeholder="Other tools you're comfortable with" class="field">
-
-        <textarea name="work_links" rows="4" class="field mt-5" placeholder="Link 1–3 examples of your work (Instagram posts, TikToks, graphics, videos, campaigns, etc.)"></textarea>
-      </div>
-
-      <div>
-        <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b border-pink-soft/20">Availability &amp; Commitment</p>
-        <div class="space-y-5">
-          <div>
-            <p class="text-sm text-cream/75 mb-3">This internship is approximately 8–10 hours per week for 12 weeks. Can you commit to that schedule?</p>
-            <div class="flex gap-6">
-              <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="commit_hours" value="Yes" required style="accent-color:#DF87B0"> Yes</label>
-              <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="commit_hours" value="No" style="accent-color:#DF87B0"> No</label>
-            </div>
-          </div>
-          <div>
-            <p class="text-sm text-cream/75 mb-3">Are you available for a weekly 30-minute team call?</p>
-            <div class="flex gap-6">
-              <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="commit_call" value="Yes" required style="accent-color:#DF87B0"> Yes</label>
-              <label class="flex items-center gap-2 text-sm text-cream/85 cursor-pointer"><input type="radio" name="commit_call" value="No" style="accent-color:#DF87B0"> No</label>
-            </div>
-          </div>
-          <input type="text" name="availability" placeholder="What days / times are you typically available?" class="field">
-        </div>
-      </div>
-
-      <div>
-        <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b border-pink-soft/20">Alignment</p>
-        <textarea name="why_community" rows="4" required class="field" placeholder="Why do you think community spaces like Blk Girls Shoot matter for Black women creatives?"></textarea>
-        <textarea name="why_valuable" rows="4" required class="field mt-4" placeholder="What would make this internship a valuable experience for you personally or professionally?"></textarea>
-      </div>
-
-      <div>
-        <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b border-pink-soft/20">Final Question</p>
-        <textarea name="contribution" rows="4" required class="field" placeholder="If selected, what's one thing you feel you could bring to the Blk Girls Shoot team this summer?"></textarea>
-      </div>
-
-      <button type="submit" class="btn-primary w-full md:w-auto">Send my application</button>
-    </form>
+<section id="apply" class="py-12 md:py-16 bg-ink text-cream text-center">
+  <div class="max-w-2xl mx-auto px-6">
+    <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-4">Apply</p>
+    <h2 class="font-display text-4xl md:text-5xl mb-4">Send us your shot.</h2>
+    <p class="text-cream/70 max-w-lg mx-auto mb-8">Fill out the application and we'll be in touch within a week. Rolling applications until the cohort is full.</p>
+    <button type="button" data-open-apply class="btn-primary">Open application</button>
   </div>
 </section>
 
@@ -555,6 +484,144 @@
     </p>
   </div>
 </footer>
+
+<!-- ============================================================ -->
+<!-- APPLICATION MODAL — opens from any [data-open-apply] button   -->
+<!-- ============================================================ -->
+<dialog id="apply-modal" class="apply-modal" aria-labelledby="apply-modal-title">
+  <button type="button" class="apply-modal__close" data-close-apply aria-label="Close">×</button>
+  <div class="apply-modal__scroll">
+    <div class="text-center mb-8">
+      <p class="font-semibold tracking-[0.2em] text-xs uppercase mb-3 opacity-90">Apply</p>
+      <h2 id="apply-modal-title" class="font-display text-3xl md:text-4xl mb-3">Send us your shot.</h2>
+      <p class="text-white/85 text-sm max-w-md mx-auto">Rolling applications until the cohort is full.</p>
+    </div>
+
+    <form id="apply-form" action="mailto:info@blkgirlsshoot.net" method="POST" enctype="text/plain" class="space-y-8">
+
+      <div>
+        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">Basic Information</p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input type="text" name="full_name" placeholder="Full name" required class="field">
+          <input type="number" name="age" placeholder="Age" required class="field">
+          <input type="email" name="email" placeholder="Email address" required class="field">
+          <input type="tel" name="phone" placeholder="Phone number" required class="field">
+          <input type="text" name="instagram" placeholder="Instagram handle" class="field">
+          <input type="text" name="tiktok" placeholder="TikTok handle (if applicable)" class="field">
+          <input type="text" name="city_state" placeholder="City &amp; State" required class="field md:col-span-2">
+        </div>
+        <div class="mt-5">
+          <p class="text-sm mb-3 opacity-90">Are you currently in school, recently graduated, or self-employed?</p>
+          <div class="grid sm:grid-cols-2 gap-2">
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="status" value="Current student" required style="accent-color:#0A0A0A"> Current student</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="status" value="Recent graduate" style="accent-color:#0A0A0A"> Recent graduate</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="status" value="Self-employed/freelance" style="accent-color:#0A0A0A"> Self-employed / freelance</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="status" value="Other" style="accent-color:#0A0A0A"> Other</label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">About You</p>
+        <textarea name="intro" rows="4" required class="field" placeholder="In 2–3 sentences, tell us who you are and why you're interested in Blk Girls Shoot."></textarea>
+
+        <div class="mt-5">
+          <p class="text-sm mb-3 opacity-90">What areas are you most interested in? (Check all that apply)</p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Content creation" style="accent-color:#0A0A0A"> Content creation</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Reels/TikTok editing" style="accent-color:#0A0A0A"> Reels / TikTok editing</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Graphic design" style="accent-color:#0A0A0A"> Graphic design</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Social media management" style="accent-color:#0A0A0A"> Social media management</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Email marketing" style="accent-color:#0A0A0A"> Email marketing</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Community engagement" style="accent-color:#0A0A0A"> Community engagement</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Copywriting/captions" style="accent-color:#0A0A0A"> Copywriting / captions</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Event marketing" style="accent-color:#0A0A0A"> Event marketing</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="interests" value="Analytics/reporting" style="accent-color:#0A0A0A"> Analytics / reporting</label>
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <p class="text-sm mb-3 opacity-90">Have you ever helped market a brand, event, or business before?</p>
+          <div class="flex gap-6 mb-3">
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="experience" value="Yes" required style="accent-color:#0A0A0A"> Yes</label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="experience" value="No" style="accent-color:#0A0A0A"> No</label>
+          </div>
+          <textarea name="experience_detail" rows="3" class="field" placeholder="If yes, briefly explain."></textarea>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">Content &amp; Creative Experience</p>
+
+        <p class="text-sm mb-3 opacity-90">Which platforms are you most comfortable using? (Check all that apply)</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 mb-3">
+          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="platforms" value="Instagram" style="accent-color:#0A0A0A"> Instagram</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="platforms" value="TikTok" style="accent-color:#0A0A0A"> TikTok</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="platforms" value="Canva" style="accent-color:#0A0A0A"> Canva</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="platforms" value="CapCut" style="accent-color:#0A0A0A"> CapCut</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="platforms" value="Flodesk/Klaviyo" style="accent-color:#0A0A0A"> Flodesk / Klaviyo</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="platforms" value="Lightroom" style="accent-color:#0A0A0A"> Lightroom</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="platforms" value="Google Drive" style="accent-color:#0A0A0A"> Google Drive</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="platforms" value="Notion" style="accent-color:#0A0A0A"> Notion</label>
+        </div>
+        <input type="text" name="platforms_other" placeholder="Other tools you're comfortable with" class="field">
+        <textarea name="work_links" rows="4" class="field mt-5" placeholder="Link 1–3 examples of your work (Instagram posts, TikToks, graphics, videos, campaigns, etc.)"></textarea>
+      </div>
+
+      <div>
+        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">Availability &amp; Commitment</p>
+        <div class="space-y-5">
+          <div>
+            <p class="text-sm mb-3 opacity-90">This internship is approximately 8–10 hours per week for 12 weeks. Can you commit?</p>
+            <div class="flex gap-6">
+              <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="commit_hours" value="Yes" required style="accent-color:#0A0A0A"> Yes</label>
+              <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="commit_hours" value="No" style="accent-color:#0A0A0A"> No</label>
+            </div>
+          </div>
+          <div>
+            <p class="text-sm mb-3 opacity-90">Available for a weekly 30-minute team call?</p>
+            <div class="flex gap-6">
+              <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="commit_call" value="Yes" required style="accent-color:#0A0A0A"> Yes</label>
+              <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="commit_call" value="No" style="accent-color:#0A0A0A"> No</label>
+            </div>
+          </div>
+          <input type="text" name="availability" placeholder="What days / times are you typically available?" class="field">
+        </div>
+      </div>
+
+      <div>
+        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">Alignment</p>
+        <textarea name="why_community" rows="4" required class="field" placeholder="Why do you think community spaces like Blk Girls Shoot matter for Black women creatives?"></textarea>
+        <textarea name="why_valuable" rows="4" required class="field mt-4" placeholder="What would make this internship a valuable experience for you personally or professionally?"></textarea>
+      </div>
+
+      <div>
+        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">Final Question</p>
+        <textarea name="contribution" rows="4" required class="field" placeholder="If selected, what's one thing you feel you could bring to the Blk Girls Shoot team this summer?"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit w-full md:w-auto">Send my application</button>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  (function () {
+    const dlg = document.getElementById('apply-modal');
+    if (!dlg) return;
+    const open = () => { if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', ''); };
+    document.querySelectorAll('[data-open-apply]').forEach(btn => {
+      btn.addEventListener('click', (e) => { e.preventDefault(); open(); });
+    });
+    document.querySelectorAll('[data-close-apply]').forEach(btn => {
+      btn.addEventListener('click', () => dlg.close());
+    });
+    // Click outside the dialog body to close
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) dlg.close();
+    });
+  })();
+</script>
 
 </body>
 </html>

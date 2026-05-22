@@ -9,9 +9,10 @@ Marketing site for **Blk Girls Shoot 2026** (campaign + community weekend) and t
 | Surface | URL | What it is |
 |---|---|---|
 | Main site | https://blkgirlsshoot.net | Landing page + Insider list signup |
-| Internship page | https://blkgirlsshoot.net/internship/ | 2026 cohort marketing/application page |
-| Worker (form backend) | https://bgs-rsvp.meccaclarkepro.workers.dev | Validates form input → Klaviyo |
+| Internship page | https://blkgirlsshoot.net/internship/ | 2026 cohort marketing + application modal |
+| Worker (form backend) | https://bgs-rsvp.meccaclarkepro.workers.dev | `POST /` → Klaviyo · `POST /apply` → Airtable |
 | Klaviyo list | List ID `WBWVDv` ("blkgirlsshoot-2026") | Where Insider signups land |
+| Airtable base | Base `appNZw4xbiqvXIhLS` · Table `tblGjNHVdoeWhfZOl` ("INTERN APPLICATIONS — Master View") | Where internship applications land |
 
 ---
 
@@ -25,10 +26,11 @@ Marketing site for **Blk Girls Shoot 2026** (campaign + community weekend) and t
 ├── assets/
 │   ├── css/styles.css          # Shared brand tokens + components
 │   └── js/
-│       ├── rsvp.js             # Main-site form → Worker
+│       ├── rsvp.js             # Main-site Insider form → Worker /
+│       ├── apply.js            # Internship modal form → Worker /apply
 │       └── slider.js           # Before/after slider (section currently in <template>)
 ├── worker/
-│   ├── src/index.js            # Cloudflare Worker — form -> Klaviyo
+│   ├── src/index.js            # Cloudflare Worker — routes / -> Klaviyo, /apply -> Airtable
 │   ├── wrangler.toml           # Worker config + non-secret env vars
 │   ├── package.json
 │   └── .gitignore              # excludes node_modules/, .wrangler/, .dev.vars
@@ -63,13 +65,17 @@ No build step. Pages are plain HTML served as-is.
 
 ---
 
-## The form pipeline (main site)
+## Form pipelines
+
+The same Worker (`bgs-rsvp`) handles both forms, dispatching on the URL path.
+
+### Main site — Insider signup → Klaviyo
 
 ```
 [index.html #rsvp form]
         │ POST JSON {name, email, phone, message}
         ▼
-[Cloudflare Worker: bgs-rsvp]
+[Cloudflare Worker: bgs-rsvp · path = / ]
         │  1) POST /api/profiles/                  (upsert profile + properties)
         │  2) POST /api/profile-subscription-      (subscribe to list w/ consent)
         │     bulk-create-jobs/
@@ -88,6 +94,49 @@ No build step. Pages are plain HTML served as-is.
 
 Every profile also gets `properties.source = "blkgirlsshoot.net"`.
 
+### Internship page — Application modal → Airtable
+
+```
+[internship/index.html  <dialog id="apply-modal">]
+        │ POST JSON {first_name, last_name, email, ..., social_platforms[], tools[], ...}
+        ▼
+[Cloudflare Worker: bgs-rsvp · path = /apply ]
+        │ POST https://api.airtable.com/v0/{base}/{table}
+        │   { fields: { "First Name": "...", ... }, typecast: true }
+        ▼
+[Airtable Master View — one row per submission]
+```
+
+`typecast: true` tells Airtable to auto-create new multi-select options and coerce types,
+so a slightly off value (e.g. a new tool the form doesn't list yet) doesn't 422 the request.
+
+**Field mapping** (form → Airtable column):
+
+| Form field | Airtable column | Type |
+|---|---|---|
+| `first_name` *(required)* | First Name | Single line text |
+| `last_name` *(required)* | Last Name | Single line text |
+| `pronouns` | Pronouns | Single line text |
+| `email` *(required)* | Email | Email |
+| `phone` | Phone | Phone |
+| `city_state` | City + State | Single line text |
+| `school_year` | School / Year | Single line text |
+| `instagram` | Instagram Handle | Single line text |
+| `portfolio` | Portfolio / LinkedIn | URL |
+| `work_sample` | Work Sample URL | URL |
+| `sample_caption` | Sample Caption | Long text |
+| `why_bgs` | Why BGS | Long text |
+| `marketing_experience` | Marketing Experience | Single select (Yes/No) |
+| `social_platforms[]` | Social Platforms Used | Multi-select |
+| `tools[]` | Tools Familiar With | Multi-select |
+| `available_shoot_week` | Available Shoot Week (Sept 5-7) | Single select (Yes/Maybe/No) |
+| `hours_per_week` | Hours / Week Available | Single line text |
+| `location_type` | Location Type | Single select (Remote/Hybrid/In-person) |
+| `heard_about_us` | Heard About Us | Single line text |
+
+Internal-only Airtable columns (Application Status, Date Applied, Mecca's Rating, Strengths,
+Concerns, Interview Date, Notes) are left blank on submission and filled in by Mecca.
+
 ---
 
 ## The Worker
@@ -98,7 +147,10 @@ Every profile also gets `properties.source = "blkgirlsshoot.net"`.
 |---|---|---|---|
 | `ALLOWED_ORIGIN` | env var | `https://blkgirlsshoot.net` | CORS lockdown |
 | `KLAVIYO_LIST_ID` | env var | `WBWVDv` | The list to subscribe to |
-| `KLAVIYO_API_KEY` | **secret** | (encrypted, set via `wrangler secret put`) | Private API key, never in repo |
+| `KLAVIYO_API_KEY` | **secret** | encrypted, set via `wrangler secret put` | Klaviyo private API key |
+| `AIRTABLE_BASE_ID` | env var | `appNZw4xbiqvXIhLS` | Internship applications base |
+| `AIRTABLE_TABLE_ID` | env var | `tblGjNHVdoeWhfZOl` | Master View table |
+| `AIRTABLE_TOKEN` | **secret** | encrypted, set via `wrangler secret put` | Airtable PAT, scope `data.records:write` |
 
 ### Deploying the Worker
 
@@ -121,9 +173,16 @@ Then trigger a form submission or curl the endpoint — `console.error` lines st
 ### Smoke-test the Worker directly
 
 ```bash
+# Klaviyo subscribe path
 curl -s -X POST https://bgs-rsvp.meccaclarkepro.workers.dev \
   -H 'Content-Type: application/json' \
   -d '{"name":"Test","email":"test+'$(date +%s)'@example.com","phone":"4045551234","message":"smoke"}'
+# Expect: {"ok":true}
+
+# Airtable apply path
+curl -s -X POST https://bgs-rsvp.meccaclarkepro.workers.dev/apply \
+  -H 'Content-Type: application/json' \
+  -d '{"first_name":"Smoke","last_name":"Test","email":"apply+'$(date +%s)'@example.com","phone":"4045551234","city_state":"Atlanta, GA","why_bgs":"smoke","marketing_experience":"Yes","social_platforms":["Instagram"],"tools":["Canva"],"available_shoot_week":"Yes","hours_per_week":"8-10","location_type":"Remote"}'
 # Expect: {"ok":true}
 ```
 
@@ -136,7 +195,8 @@ All secrets live in encrypted stores **outside this repo**. Nothing sensitive is
 | Credential | Lives in | How to rotate |
 |---|---|---|
 | Klaviyo private API key | Cloudflare Worker secret `KLAVIYO_API_KEY` | See "Rotating the Klaviyo key" below |
-| Cloudflare API token (for deploys) | Operator's shell session env var `CLOUDFLARE_API_TOKEN` | [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens) → create with "Edit Cloudflare Workers" template |
+| Airtable Personal Access Token | Cloudflare Worker secret `AIRTABLE_TOKEN` | See "Rotating the Airtable token" below |
+| Cloudflare API token (for deploys) | Operator's shell session env var `CLOUDFLARE_API_TOKEN` | [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens) → create custom token with **Account → Workers Scripts → Edit** |
 | Cloudflare account 2FA | Cloudflare account | Standard 2FA reset |
 | GitHub repo write access | GitHub account | Standard GH permissions |
 
@@ -152,6 +212,18 @@ All secrets live in encrypted stores **outside this repo**. Nothing sensitive is
    printf '%s' 'PASTE_NEW_KEY_HERE' | npx wrangler secret put KLAVIYO_API_KEY
    ```
 6. Verify with the smoke-test curl above. No redeploy needed.
+
+### Rotating the Airtable token
+
+1. [airtable.com/create/tokens](https://airtable.com/create/tokens) → revoke the old token
+2. **Create token** → name `bgs-apply-worker` → scope `data.records:write` → restrict to the one base
+3. Copy the token (Airtable only shows it once)
+4. Pipe it into Wrangler:
+   ```bash
+   cd worker
+   printf '%s' 'PASTE_NEW_PAT' | npx wrangler secret put AIRTABLE_TOKEN
+   ```
+5. Verify with the `/apply` smoke-test curl above. No redeploy needed.
 
 ---
 
@@ -176,15 +248,18 @@ Both are wrapped in `<template>` tags in [`index.html`](index.html). Remove the 
 ## Forms
 
 ### Main site — Insider signup (`#rsvp`)
-Wired to the Worker → Klaviyo (described above).
+Posts to Worker root (`POST /`) → Klaviyo list `WBWVDv`. See pipeline diagram above.
 
-### Internship — Application form
-Currently uses **`mailto:info@blkgirlsshoot.net`** with `enctype="text/plain"`. This opens the visitor's mail client with pre-filled fields. Brittle for users without a configured mail client.
+### Internship — Application modal
+Posts to `POST /apply` → Airtable Master View. Opens as a hot-pink `<dialog>` modal from any
+`[data-open-apply]` button (header CTA, hero CTA, bottom-of-page CTA). Form fields are named
+to match the Airtable schema; submission JSON preserves multi-valued checkboxes as arrays
+so multi-select columns land correctly.
 
-Possible upgrades when ready:
-- Route through the existing Worker into a new Klaviyo list (e.g., "Internship 2026 Applicants") with per-field custom properties
-- Or use Tally / Typeform / Airtable form embed
-- Or Formspree as a simple email-forwarding endpoint
+If you add/remove form fields or rename Airtable columns, you must update **both** the
+`<form>` markup in [`internship/index.html`](internship/index.html) **and** the field-mapping
+object in [`worker/src/index.js`](worker/src/index.js) `handleApply()` (the Airtable column
+names are string keys in that object and must match exactly).
 
 ---
 
@@ -200,8 +275,8 @@ To restore any of these, unwrap the template tag and uncomment the nav link.
 
 ## Punch list / known limitations
 
-- **No rate limiting** on the Worker. Form is open to anyone POSTing; bots can mass-submit garbage. Cloudflare WAF rule (rate-limit by IP) or a tiny honeypot field would close this.
-- **Internship form** is mailto-based (see Forms section).
+- **No rate limiting** on the Worker. Both routes are open to anyone POSTing; bots can mass-submit garbage. Cloudflare WAF rule (rate-limit by IP) or a tiny honeypot field would close this.
+- **No application dedupe**. `/apply` creates a new Airtable row every submit; a determined applicant can submit ten times. Consider adding an email-existence check before insert, or relying on Airtable views to flag dupes.
 - **Cloudflare token** in operator's shell isn't persistent. If you want it across sessions, store via 1Password CLI or a sourced env file (outside the repo).
 - **Tailwind via CDN** is fine for marketing pages but blows up bundle size on every visit. If the site grows or perf matters, swap to a built Tailwind step.
 
@@ -216,20 +291,32 @@ cd worker && export CLOUDFLARE_API_TOKEN='…' && npx wrangler deploy
 # Update Klaviyo key
 cd worker && printf '%s' 'KEY' | npx wrangler secret put KLAVIYO_API_KEY
 
+# Update Airtable token
+cd worker && printf '%s' 'PAT' | npx wrangler secret put AIRTABLE_TOKEN
+
 # Tail Worker logs
 cd worker && npx wrangler tail
 
 # List Worker secrets (names only, no values)
 cd worker && npx wrangler secret list
 
-# Smoke-test the live Worker
+# Smoke-test the Klaviyo path
 curl -s -X POST https://bgs-rsvp.meccaclarkepro.workers.dev \
   -H 'Content-Type: application/json' \
   -d '{"name":"Test","email":"smoke+'$(date +%s)'@example.com"}'
+
+# Smoke-test the Airtable apply path
+curl -s -X POST https://bgs-rsvp.meccaclarkepro.workers.dev/apply \
+  -H 'Content-Type: application/json' \
+  -d '{"first_name":"Smoke","last_name":"Test","email":"apply+'$(date +%s)'@example.com","phone":"4045551234","city_state":"Atlanta, GA","why_bgs":"smoke","marketing_experience":"Yes","social_platforms":["Instagram"],"tools":["Canva"],"available_shoot_week":"Yes","hours_per_week":"8-10","location_type":"Remote"}'
 
 # Inspect a specific subscriber in Klaviyo (run locally; don't paste KEY)
 curl -s -H "Authorization: Klaviyo-API-Key $KEY" \
      -H "revision: 2026-04-15" \
      -H "accept: application/json" \
      'https://a.klaviyo.com/api/profiles/?filter=equals(email,"someone@example.com")'
+
+# List recent Airtable applications (run locally; don't paste PAT)
+curl -s -H "Authorization: Bearer $PAT" \
+     'https://api.airtable.com/v0/appNZw4xbiqvXIhLS/tblGjNHVdoeWhfZOl?maxRecords=10&sort[0][field]=Date%20Applied&sort[0][direction]=desc'
 ```

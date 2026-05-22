@@ -4,7 +4,10 @@ compatibility_date = "2025-01-01"
 
 # Secrets (set via `npx wrangler secret put <NAME>`):
 #   KLAVIYO_API_KEY  — Klaviyo private API key (Settings → API Keys)
+#   AIRTABLE_TOKEN   — Airtable Personal Access Token, scope: data.records:write
 
 [vars]
 ALLOWED_ORIGIN = "https://blkgirlsshoot.net"
 KLAVIYO_LIST_ID = "WBWVDv"
+AIRTABLE_BASE_ID = "appNZw4xbiqvXIhLS"
+AIRTABLE_TABLE_ID = "tblGjNHVdoeWhfZOl"

@@ -1,8 +1,10 @@
 const KLAVIYO_API = 'https://a.klaviyo.com/api';
 const KLAVIYO_REVISION = '2026-04-15';
+const AIRTABLE_API = 'https://api.airtable.com/v0';
 
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
     const origin = request.headers.get('Origin') || '';
     const corsHeaders = buildCors(origin, env.ALLOWED_ORIGIN);
 
@@ -13,6 +15,17 @@ export default {
       return reply({ error: 'Method not allowed' }, 405, corsHeaders);
     }
 
+    // Route: internship application -> Airtable
+    if (url.pathname === '/apply') {
+      return handleApply(request, env, corsHeaders);
+    }
+
+    // Default route (unchanged): Insider signup -> Klaviyo
+    return handleSubscribe(request, env, corsHeaders);
+  },
+};
+
+async function handleSubscribe(request, env, corsHeaders) {
     let body;
     try {
       body = await request.json();
@@ -110,8 +123,82 @@ export default {
     }
 
     return reply({ ok: true }, 200, corsHeaders);
-  },
-};
+}
+
+// Internship application -> Airtable record.
+// Field names below MUST match Airtable column names exactly.
+async function handleApply(request, env, corsHeaders) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return reply({ error: 'Invalid JSON' }, 400, corsHeaders);
+  }
+
+  const first = String(body.first_name || '').trim();
+  const last = String(body.last_name || '').trim();
+  const email = String(body.email || '').trim();
+  if (!first || !last) {
+    return reply({ error: 'First and last name required' }, 400, corsHeaders);
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return reply({ error: 'Valid email required' }, 400, corsHeaders);
+  }
+
+  const arr = (v) => (Array.isArray(v) ? v : v ? [v] : []);
+  const fields = {
+    'First Name': first,
+    'Last Name': last,
+    'Pronouns': body.pronouns,
+    'Email': email,
+    'Phone': body.phone,
+    'City + State': body.city_state,
+    'School / Year': body.school_year,
+    'Instagram Handle': body.instagram,
+    'Portfolio / LinkedIn': body.portfolio,
+    'Work Sample URL': body.work_sample,
+    'Sample Caption': body.sample_caption,
+    'Why BGS': body.why_bgs,
+    'Marketing Experience': body.marketing_experience,
+    'Social Platforms Used': arr(body.social_platforms),
+    'Tools Familiar With': arr(body.tools),
+    'Available Shoot Week (Sept 5-7)': body.available_shoot_week,
+    'Hours / Week Available': body.hours_per_week,
+    'Location Type': body.location_type,
+    'Heard About Us': body.heard_about_us,
+  };
+
+  // Strip empty/undefined so we don't send empty strings or [] to Airtable.
+  for (const k of Object.keys(fields)) {
+    const v = fields[k];
+    if (v === undefined || v === null || v === '' || (Array.isArray(v) && v.length === 0)) {
+      delete fields[k];
+    }
+  }
+
+  const token = (env.AIRTABLE_TOKEN || '').trim();
+  const at = await fetch(
+    `${AIRTABLE_API}/${env.AIRTABLE_BASE_ID}/${env.AIRTABLE_TABLE_ID}`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      // typecast: true lets Airtable auto-create new select options and
+      // coerce strings -> numbers / dates so a slightly off value doesn't 422 us.
+      body: JSON.stringify({ fields, typecast: true }),
+    }
+  );
+
+  if (!at.ok) {
+    const text = await at.text();
+    console.error('Airtable error', at.status, text);
+    return reply({ error: 'Application submit failed' }, 502, corsHeaders);
+  }
+
+  return reply({ ok: true }, 200, corsHeaders);
+}
 
 function reply(data, status, headers) {
   return new Response(JSON.stringify(data), {

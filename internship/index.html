@@ -27,48 +27,6 @@
     transition: transform .2s ease, box-shadow .2s ease;
   }
   .metric-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(223,135,176,.18); }
-
-  /* Apply modal — pink dialog with form inside */
-  .apply-modal {
-    width: 92%; max-width: 760px; max-height: 88vh;
-    padding: 0; border: none; border-radius: 18px;
-    background: var(--pink-deep); color: white;
-    overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0,0,0,.35);
-  }
-  .apply-modal::backdrop { background: rgba(10,10,10,.7); backdrop-filter: blur(2px); }
-  .apply-modal__scroll { padding: 2.25rem 2rem; max-height: 88vh; overflow-y: auto; }
-  .apply-modal__close {
-    position: absolute; top: .9rem; right: .9rem;
-    width: 36px; height: 36px; border: none; border-radius: 999px;
-    background: rgba(10,10,10,.18); color: white;
-    font-size: 1.25rem; line-height: 1; cursor: pointer; z-index: 2;
-    transition: background .15s ease;
-  }
-  .apply-modal__close:hover { background: rgba(10,10,10,.35); }
-  /* Field styling override inside the pink modal — white surface so inputs are legible */
-  .apply-modal .field {
-    background: white;
-    border: 1px solid rgba(10,10,10,.08);
-    color: var(--ink);
-  }
-  .apply-modal .field:focus { border-color: var(--ink); background: white; }
-  .apply-modal .field::placeholder { color: rgba(10,10,10,.4); }
-  /* Section eyebrows on pink */
-  .apply-modal .section-eyebrow {
-    color: white; opacity: .95;
-    border-bottom-color: rgba(255,255,255,.25);
-  }
-  .apply-modal label { color: rgba(255,255,255,.95); }
-  /* Submit button: white on pink for contrast inversion */
-  .apply-modal .btn-submit {
-    display: inline-block; background: white; color: var(--pink-deep);
-    padding: 0.95rem 2rem; font-weight: 700; letter-spacing: 0.04em;
-    text-transform: uppercase; font-size: 0.85rem; border-radius: 999px;
-    border: none; cursor: pointer;
-    transition: transform .15s ease, background .15s ease, color .15s ease;
-  }
-  .apply-modal .btn-submit:hover { background: var(--ink); color: white; transform: translateY(-1px); }
 </style>
 </head>
 <body>
@@ -96,7 +54,7 @@
         <svg data-icon-hamburger xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
         <svg data-icon-close class="hidden" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
       </button>
-      <button type="button" data-open-apply class="btn-primary">Apply</button>
+      <a href="#apply" class="btn-primary">Apply</a>
     </div>
   </div>
   <div id="mobile-menu" class="hidden md:hidden border-t border-pink-deep/20 bg-cream">
@@ -130,7 +88,7 @@
         and leave with a portfolio that does the talking for you.
       </p>
       <div class="flex flex-wrap gap-4">
-        <button type="button" data-open-apply class="btn-primary">Apply now</button>
+        <a href="#apply" class="btn-primary">Apply now</a>
         <a href="#about" class="btn-ghost">How it works</a>
       </div>
     </div>
@@ -459,21 +417,24 @@
           <span>I have a different question.</span>
           <span class="faq-icon text-pink-deep text-2xl">+</span>
         </summary>
-        <p class="mt-4 text-ink/70">Drop it in the application form below. We read every one.</p>
+        <p class="mt-4 text-ink/70">Email us at <a href="mailto:info@blkgirlsshoot.net" class="text-pink-deep hover:underline">info@blkgirlsshoot.net</a>. We read every one.</p>
       </details>
     </div>
   </div>
 </section>
 
 <!-- ============================================================ -->
-<!-- 9. APPLY CTA — opens the modal below                          -->
+<!-- 9. APPLICATIONS CLOSED — redirect interest to the Insider list -->
 <!-- ============================================================ -->
 <section id="apply" class="py-8 md:py-12 bg-ink text-cream text-center">
   <div class="max-w-2xl mx-auto px-6">
-    <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-4">Apply</p>
-    <h2 class="font-display text-4xl md:text-5xl mb-4">Send us your shot.</h2>
-    <p class="text-cream/70 max-w-lg mx-auto mb-8">Fill out the application and we'll be in touch within a week. Rolling applications until the cohort is full.</p>
-    <button type="button" data-open-apply class="btn-primary">Open application</button>
+    <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-4">Applications Closed</p>
+    <h2 class="font-display text-4xl md:text-5xl mb-4">You just missed the cut.</h2>
+    <p class="text-cream/70 max-w-lg mx-auto mb-8">
+      Sorry — the internship application period is over. Join the BGS Insider Program
+      to stay in the loop on next year's cohort and everything in between.
+    </p>
+    <a href="../#rsvp" class="btn-primary">Join the BGS Insider Program</a>
   </div>
 </section>
 
@@ -500,136 +461,6 @@
     </p>
   </div>
 </footer>
-
-<!-- ============================================================ -->
-<!-- APPLICATION MODAL — opens from any [data-open-apply] button   -->
-<!-- ============================================================ -->
-<dialog id="apply-modal" class="apply-modal" aria-labelledby="apply-modal-title">
-  <button type="button" class="apply-modal__close" data-close-apply aria-label="Close">×</button>
-  <div class="apply-modal__scroll">
-    <div class="text-center mb-8">
-      <p class="font-semibold tracking-[0.2em] text-xs uppercase mb-3 opacity-90">Apply</p>
-      <h2 id="apply-modal-title" class="font-display text-3xl md:text-4xl mb-3">Send us your shot.</h2>
-      <p class="text-white/85 text-sm max-w-md mx-auto">Rolling applications until the cohort is full.</p>
-    </div>
-
-    <!-- Field names below align with the Airtable Master View columns. -->
-    <form id="apply-form" data-endpoint="https://bgs-rsvp.meccaclarkepro.workers.dev/apply" class="space-y-8">
-
-      <div>
-        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">Basic Information</p>
-        <div class="grid md:grid-cols-2 gap-4">
-          <input type="text" name="first_name" placeholder="First name" required class="field">
-          <input type="text" name="last_name" placeholder="Last name" required class="field">
-          <input type="text" name="pronouns" placeholder="Pronouns (e.g., she/her)" class="field">
-          <input type="email" name="email" placeholder="Email address" required class="field">
-          <input type="tel" name="phone" placeholder="Phone number" required class="field">
-          <input type="text" name="city_state" placeholder="City + State" required class="field">
-          <input type="text" name="school_year" placeholder='School / Year (e.g., "Senior, Spelman 2026")' class="field md:col-span-2">
-        </div>
-      </div>
-
-      <div>
-        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">Your Work</p>
-        <div class="grid md:grid-cols-2 gap-4">
-          <input type="text" name="instagram" placeholder="Instagram handle" class="field">
-          <input type="url" name="portfolio" placeholder="Portfolio / LinkedIn URL" class="field">
-          <input type="url" name="work_sample" placeholder="Work sample URL (one piece you're proud of)" class="field md:col-span-2">
-        </div>
-        <textarea name="sample_caption" rows="3" class="field mt-4" placeholder="Sample caption — write one you'd use for a BGS post."></textarea>
-      </div>
-
-      <div>
-        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">About You</p>
-        <textarea name="why_bgs" rows="4" required class="field" placeholder="Why BGS? Tell us what brings you to this internship."></textarea>
-
-        <div class="mt-5">
-          <p class="text-sm mb-3 opacity-90">Have you helped market a brand, event, or business before?</p>
-          <div class="flex gap-6">
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="marketing_experience" value="Yes" required style="accent-color:#0A0A0A"> Yes</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="marketing_experience" value="No" style="accent-color:#0A0A0A"> No</label>
-          </div>
-        </div>
-
-        <div class="mt-5">
-          <p class="text-sm mb-3 opacity-90">Social platforms you use (check all)</p>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="social_platforms" value="Instagram" style="accent-color:#0A0A0A"> Instagram</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="social_platforms" value="TikTok" style="accent-color:#0A0A0A"> TikTok</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="social_platforms" value="Twitter/X" style="accent-color:#0A0A0A"> Twitter / X</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="social_platforms" value="LinkedIn" style="accent-color:#0A0A0A"> LinkedIn</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="social_platforms" value="YouTube" style="accent-color:#0A0A0A"> YouTube</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="social_platforms" value="Pinterest" style="accent-color:#0A0A0A"> Pinterest</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="social_platforms" value="Threads" style="accent-color:#0A0A0A"> Threads</label>
-          </div>
-        </div>
-
-        <div class="mt-5">
-          <p class="text-sm mb-3 opacity-90">Tools you're familiar with (check all)</p>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="tools" value="Canva" style="accent-color:#0A0A0A"> Canva</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="tools" value="CapCut" style="accent-color:#0A0A0A"> CapCut</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="tools" value="Lightroom" style="accent-color:#0A0A0A"> Lightroom</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="tools" value="Photoshop" style="accent-color:#0A0A0A"> Photoshop</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="tools" value="Notion" style="accent-color:#0A0A0A"> Notion</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="tools" value="Google Drive" style="accent-color:#0A0A0A"> Google Drive</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="tools" value="Airtable" style="accent-color:#0A0A0A"> Airtable</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="tools" value="Klaviyo" style="accent-color:#0A0A0A"> Klaviyo</label>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <p class="section-eyebrow font-semibold tracking-[0.2em] text-xs uppercase mb-5 pb-3 border-b">Logistics</p>
-
-        <div>
-          <p class="text-sm mb-3 opacity-90">Available the shoot week (Sept 5–7)?</p>
-          <div class="flex flex-wrap gap-6">
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="available_shoot_week" value="Yes" required style="accent-color:#0A0A0A"> Yes</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="available_shoot_week" value="Maybe" style="accent-color:#0A0A0A"> Maybe</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="available_shoot_week" value="No" style="accent-color:#0A0A0A"> No</label>
-          </div>
-        </div>
-
-        <input type="text" name="hours_per_week" placeholder="Hours per week available (e.g., 8–10)" required class="field mt-5">
-
-        <div class="mt-5">
-          <p class="text-sm mb-3 opacity-90">Location type</p>
-          <div class="flex flex-wrap gap-6">
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="location_type" value="Remote" required style="accent-color:#0A0A0A"> Remote</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="location_type" value="Hybrid" style="accent-color:#0A0A0A"> Hybrid</label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="radio" name="location_type" value="In-person" style="accent-color:#0A0A0A"> In-person</label>
-          </div>
-        </div>
-
-        <input type="text" name="heard_about_us" placeholder="How did you hear about us?" class="field mt-5">
-      </div>
-
-      <button type="submit" class="btn-submit w-full md:w-auto">Send my application</button>
-      <p id="apply-status" class="text-sm min-h-[1.25rem] mt-3" role="status" aria-live="polite"></p>
-    </form>
-  </div>
-</dialog>
-
-<script src="../assets/js/apply.js" defer></script>
-
-<script>
-  (function () {
-    const dlg = document.getElementById('apply-modal');
-    if (!dlg) return;
-    const open = () => { if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', ''); };
-    document.querySelectorAll('[data-open-apply]').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.preventDefault(); open(); });
-    });
-    document.querySelectorAll('[data-close-apply]').forEach(btn => {
-      btn.addEventListener('click', () => dlg.close());
-    });
-    // Click outside the dialog body to close
-    dlg.addEventListener('click', (e) => {
-      if (e.target === dlg) dlg.close();
-    });
-  })();
-</script>
 
 </body>
 </html>

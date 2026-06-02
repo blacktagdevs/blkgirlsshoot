@@ -9,10 +9,10 @@ Marketing site for **Blk Girls Shoot 2026** (campaign + community weekend) and t
 | Surface | URL | What it is |
 |---|---|---|
 | Main site | https://blkgirlsshoot.net | Landing page + Insider list signup |
-| Internship page | https://blkgirlsshoot.net/internship/ | 2026 cohort marketing + application modal |
-| Worker (form backend) | https://bgs-rsvp.meccaclarkepro.workers.dev | `POST /` → Klaviyo · `POST /apply` → Airtable |
+| Internship page | https://blkgirlsshoot.net/internship/ | 2026 cohort marketing page · application modal currently **closed** |
+| Worker (form backend) | https://bgs-rsvp.meccaclarkepro.workers.dev | `POST /` → Klaviyo · `POST /apply` → Airtable (route live, UI disabled) |
 | Klaviyo list | List ID `WBWVDv` ("blkgirlsshoot-2026") | Where Insider signups land |
-| Airtable base | Base `appNZw4xbiqvXIhLS` · Table `tblGjNHVdoeWhfZOl` ("INTERN APPLICATIONS — Master View") | Where internship applications land |
+| Airtable base | Base `appNZw4xbiqvXIhLS` · Table `tblGjNHVdoeWhfZOl` ("INTERN APPLICATIONS — Master View") | Where internship applications land (dormant until next cohort) |
 
 ---
 
@@ -95,6 +95,14 @@ The same Worker (`bgs-rsvp`) handles both forms, dispatching on the URL path.
 Every profile also gets `properties.source = "blkgirlsshoot.net"`.
 
 ### Internship page — Application modal → Airtable
+
+> ⚠️ **Currently closed.** The application modal is removed from the page; the `#apply`
+> section shows an "Applications Closed" message redirecting visitors to the Insider list.
+> The Worker `/apply` route and the Airtable wiring are still live (anyone can still POST
+> to the endpoint directly), so re-enabling next year is just: restore the form markup,
+> re-add the `apply.js` `<script>` tag, and revert the closed-state copy in `#apply`.
+> Reference: [`assets/js/apply.js`](assets/js/apply.js) still in repo, Worker route
+> [`worker/src/index.js`](worker/src/index.js) `handleApply()` untouched.
 
 ```
 [internship/index.html  <dialog id="apply-modal">]
@@ -250,16 +258,28 @@ Both are wrapped in `<template>` tags in [`index.html`](index.html). Remove the 
 ### Main site — Insider signup (`#rsvp`)
 Posts to Worker root (`POST /`) → Klaviyo list `WBWVDv`. See pipeline diagram above.
 
-### Internship — Application modal
-Posts to `POST /apply` → Airtable Master View. Opens as a hot-pink `<dialog>` modal from any
-`[data-open-apply]` button (header CTA, hero CTA, bottom-of-page CTA). Form fields are named
-to match the Airtable schema; submission JSON preserves multi-valued checkboxes as arrays
-so multi-select columns land correctly.
+### Internship — Application modal *(currently closed)*
+The application modal is **disabled for this cohort**. The `#apply` section on
+[`internship/index.html`](internship/index.html) shows a closed-state message that links
+to the Insider list (`../#rsvp`). The Apply buttons in the header and hero now scroll to
+that closed message instead of opening a modal.
 
-If you add/remove form fields or rename Airtable columns, you must update **both** the
-`<form>` markup in [`internship/index.html`](internship/index.html) **and** the field-mapping
-object in [`worker/src/index.js`](worker/src/index.js) `handleApply()` (the Airtable column
-names are string keys in that object and must match exactly).
+**When applications were live** (still applies once re-enabled): the modal posted to
+`POST /apply` → Airtable Master View. Field names matched the Airtable schema; submission
+JSON preserved multi-valued checkboxes as arrays so multi-select columns landed correctly.
+If you add/remove form fields or rename Airtable columns, update **both** the `<form>`
+markup in [`internship/index.html`](internship/index.html) **and** the field-mapping object
+in [`worker/src/index.js`](worker/src/index.js) `handleApply()` (the Airtable column names
+are string keys in that object and must match exactly).
+
+**To re-open applications next year:**
+1. Restore the `<dialog id="apply-modal">` markup, the open/close `<script>`, and the
+   `<script src="../assets/js/apply.js">` include (git history has the last live version)
+2. Revert the `#apply` section copy from the closed message back to "Send us your shot" +
+   the "Open application" CTA
+3. Flip the header and hero `<a href="#apply">` back to `<button data-open-apply>`
+4. (Optional) Re-add the `.apply-modal*` styles in the inline `<style>` block
+5. Smoke-test with the `/apply` curl in the cheat sheet
 
 ---
 

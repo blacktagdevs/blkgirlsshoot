@@ -1,6 +1,6 @@
 # blkgirlsshoot.net
 
-Marketing site for **Blk Girls Shoot 2026** (campaign + community weekend) and the **BGS Summer Internship**, plus the Cloudflare Worker that backs the email-list signup form.
+Marketing site for **Blk Girls Shoot 2026**: campaign + community weekend (Home), pop-up events (Events), speaker roster (Speakers), and the **BGS Summer Internship** — plus the Cloudflare Worker that backs the email-list signup and the (currently closed) internship application form.
 
 ---
 
@@ -8,11 +8,13 @@ Marketing site for **Blk Girls Shoot 2026** (campaign + community weekend) and t
 
 | Surface | URL | What it is |
 |---|---|---|
-| Main site | https://blkgirlsshoot.net | Landing page + Insider list signup |
-| Internship page | https://blkgirlsshoot.net/internship/ | 2026 cohort marketing page · application modal currently **closed** |
-| Worker (form backend) | https://bgs-rsvp.meccaclarkepro.workers.dev | `POST /` → Klaviyo · `POST /apply` → Airtable (route live, UI disabled) |
-| Klaviyo list | List ID `WBWVDv` ("blkgirlsshoot-2026") | Where Insider signups land |
-| Airtable base | Base `appNZw4xbiqvXIhLS` · Table `tblGjNHVdoeWhfZOl` ("INTERN APPLICATIONS — Master View") | Where internship applications land (dormant until next cohort) |
+| Home | https://blkgirlsshoot.net | Landing page + Insider list signup (`#rsvp`) |
+| Events | https://blkgirlsshoot.net/events/ | Pop-Up Calendar. Event cards with a Register modal that posts to the same Insider list as Home |
+| Speakers | https://blkgirlsshoot.net/speakers/ | Speaker roster. Each speaker's event pill links to the matching event on the Events page |
+| Internship | https://blkgirlsshoot.net/internship/ | 2026 cohort marketing page · application modal currently **closed** |
+| Worker (form backend) | https://bgs-rsvp.meccaclarkepro.workers.dev | `POST /` → Klaviyo · `POST /apply` → Airtable (route live, **token revoked** so Airtable writes 401) |
+| Klaviyo list | List ID `WBWVDv` ("blkgirlsshoot-2026") | Where every Insider signup lands — from Home `#rsvp`, from Events Register modal, future surfaces too |
+| Airtable base | Base `appNZw4xbiqvXIhLS` · Table `tblGjNHVdoeWhfZOl` ("INTERN APPLICATIONS — Master View") | Where internship applications land (dormant: cohort closed + token revoked) |
 
 ---
 
@@ -20,14 +22,20 @@ Marketing site for **Blk Girls Shoot 2026** (campaign + community weekend) and t
 
 ```
 .
-├── index.html                  # Main site
+├── index.html                  # Home (campaign + Insider signup)
+├── events/
+│   └── index.html              # Pop-Up Calendar + event cards w/ Register modal
+├── speakers/
+│   └── index.html              # Speaker roster; event pills link to /events/#anchor
 ├── internship/
-│   └── index.html              # Internship cohort page
+│   └── index.html              # Internship cohort page (applications closed)
 ├── assets/
-│   ├── css/styles.css          # Shared brand tokens + components
+│   ├── css/styles.css          # Shared brand tokens + components (.btn-*, .field, .event-pill, ...)
 │   └── js/
-│       ├── rsvp.js             # Main-site Insider form → Worker /
-│       ├── apply.js            # Internship modal form → Worker /apply
+│       ├── nav.js              # Mobile hamburger toggle — used on all four pages
+│       ├── rsvp.js             # Insider form submit handler — same script powers
+│       │                       #   Home #rsvp AND the Events Register modal
+│       ├── apply.js            # Internship modal submit handler (kept for next cohort)
 │       └── slider.js           # Before/after slider (section currently in <template>)
 ├── worker/
 │   ├── src/index.js            # Cloudflare Worker — routes / -> Klaviyo, /apply -> Airtable
@@ -38,6 +46,25 @@ Marketing site for **Blk Girls Shoot 2026** (campaign + community weekend) and t
 ├── .nojekyll                   # tells Pages: serve files as-is
 └── README.md                   # this file
 ```
+
+---
+
+## Site structure & nav
+
+Every page (Home, Events, Speakers, Internship) shares the same sticky header chrome: 80×80 logo on the left, 4-item static nav in the middle (desktop) or mobile hamburger (≤md), primary CTA on the right (RSVP on Home/Events/Speakers, Apply on Internship — which now scrolls to the closed-state message).
+
+The nav is **cross-page only** — no in-page anchor links. The four items are always:
+
+```
+Home   →  /
+Events →  /events/
+Speakers → /speakers/
+Internship → /internship/
+```
+
+`href` values are relative to the page's depth (e.g., from `internship/index.html` they're `../`, `../events/`, etc., with `./` for the self-link). When adding a new page, mirror this pattern on every header.
+
+The mobile menu is driven by [`assets/js/nav.js`](assets/js/nav.js) — toggle button, slide-open menu panel below the header, ESC + link-click both close it. The same script powers all four pages; no per-page changes needed unless you add a new page (just include the script tag).
 
 ---
 
@@ -93,6 +120,33 @@ The same Worker (`bgs-rsvp`) handles both forms, dispatching on the URL path.
 | `message` | optional | `properties.message` |
 
 Every profile also gets `properties.source = "blkgirlsshoot.net"`.
+
+### Events page — Register modal → Klaviyo (same list)
+
+The Register button on each event card opens a `<dialog id="rsvp-modal">` containing the **same form** as Home's `#rsvp` section (same field names, same `data-endpoint`, same `id="rsvp-form"`). The shared [`assets/js/rsvp.js`](assets/js/rsvp.js) attaches automatically because it just looks for `#rsvp-form`.
+
+```
+[events/index.html  <article class="event-card">  →  data-open-rsvp button]
+        │ click
+        ▼
+[<dialog id="rsvp-modal"> opens; same fields as Home]
+        │ submit → reuses the Home pipeline above
+        ▼
+[Klaviyo list WBWVDv — single source of truth]
+```
+
+What this means in practice:
+- Every event registration lands in the same Klaviyo list as a Home `#rsvp` signup. There's no per-event segmentation yet — Mecca sends event details (Zoom link, etc.) as a campaign to the list (or a recent-signups segment).
+- If you want per-event segmentation later: add a hidden `<input type="hidden" name="event" value="behind-the-lens">` inside each event's modal, then map it into a custom property in the Worker's `handleSubscribe()`. From there it's a Klaviyo segment filter.
+- Each event card has an `id` (e.g. `id="behind-the-lens"`) so the Speakers page can deep-link directly via `../events/#behind-the-lens`.
+
+### Speakers page — pills link to events
+
+Each speaker card ends in a `.speaker-card__pills` block containing one or more `<a class="event-pill" href="../events/#anchor">` links. The pill picks up clickable behavior from a Tailwind-style `text-decoration: none` and a `transform + bg` hover state, both defined in [`assets/css/styles.css`](assets/css/styles.css). Static (non-clickable) pills can still use `<span class="event-pill">`.
+
+When you add a new event:
+1. Add the event card to [`events/index.html`](events/index.html) with a stable `id` (e.g., `id="atlanta-popup-shoot"`).
+2. On any speaker who's appearing, add a new `<a class="event-pill" href="../events/#atlanta-popup-shoot">Atlanta Pop-up Shoot</a>` to their `.speaker-card__pills` block.
 
 ### Internship page — Application modal → Airtable
 
@@ -238,25 +292,45 @@ All secrets live in encrypted stores **outside this repo**. Nothing sensitive is
 ## Common content edits
 
 ### Change brand colors / fonts site-wide
-Edit `:root` variables at the top of [`assets/css/styles.css`](assets/css/styles.css). Both pages pick up the change automatically.
+Edit `:root` variables at the top of [`assets/css/styles.css`](assets/css/styles.css). All four pages pick up the change automatically — they all link to this stylesheet.
 
-### Add a nav link to the main site
-Edit the `<nav>` block in [`index.html`](index.html) (around line 43). Use a `#section-id` anchor for in-page nav or a relative path (e.g., `internship/`) for cross-page.
+### Add an event
+1. Open [`events/index.html`](events/index.html), find the `#upcoming` grid (search for `<!-- EVENT CARD:`).
+2. Duplicate an existing `<article class="event-card">` block, change:
+   - The `id="..."` to a stable kebab-case slug (e.g., `id="atlanta-popup-shoot"`) — this is how speakers can deep-link to it.
+   - The flyer URL in `event-card__flyer` (upload to Cloudflare Images first).
+   - Eyebrow, name, body copy, and the `event-card__meta` lines (date / time / location).
+3. The Register button (`data-open-rsvp`) already opens the shared modal — no per-event JS needed.
+4. If you want the modal to read "Register — [Event Name]" specifically, that requires either a per-event modal or a data-attribute pass-through (currently the modal title is hardcoded to "Behind the Lens Webinar"). Punt unless you need it.
+
+### Add a speaker
+1. Open [`speakers/index.html`](speakers/index.html), find the grid (search for `<!-- MAYA -->`).
+2. Duplicate an existing `<article class="speaker-card">` block, change:
+   - The Cloudflare URL in `speaker-card__photo`.
+   - Name `<h3>`, role line `<p class="text-pink-deep ...">`, and bio paragraph.
+   - The `.speaker-card__pills` block: one `<a class="event-pill" href="../events/#event-slug">Event Name</a>` per event they're speaking at.
+3. Photo crop: `background-position: center top` is set on `.speaker-card__photo` so the top of the source image stays visible. Use portrait-oriented photos with the face near the top for best results.
+
+### Add a nav link
+The nav lives in the `<header>` of **every** page. To add a fifth top-level item, edit `index.html`, `events/index.html`, `speakers/index.html`, AND `internship/index.html` — both the desktop `<nav>` block and the mobile `#mobile-menu` block in each. Mind the relative-path conventions (described in "Site structure & nav" above).
 
 ### Swap a hero / gallery / founder image
 1. Upload to Cloudflare Images
 2. Copy the delivery URL (looks like `https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/<UUID>/public`)
-3. Replace the `src` attribute in the HTML — no local files involved
+3. Replace the `src` attribute (or inline `background-image: url(...)`) in the HTML — no local files involved
 
 ### Unhide the Before/After or Pricing section
-Both are wrapped in `<template>` tags in [`index.html`](index.html). Remove the surrounding `<template>` / `</template>` and uncomment the "Schedule" nav link.
+Both are wrapped in `<template>` tags in [`index.html`](index.html). Remove the surrounding `<template>` / `</template>` to make them render again. (The matching "Schedule" nav link is no longer in the source — the nav restructure dropped it. Add a new nav item the same way you'd add any other.)
 
 ---
 
 ## Forms
 
-### Main site — Insider signup (`#rsvp`)
+### Home — Insider signup (`#rsvp`)
 Posts to Worker root (`POST /`) → Klaviyo list `WBWVDv`. See pipeline diagram above.
+
+### Events — Register modal (one per event card)
+Same form, same Worker, same Klaviyo list as Home. The shared [`assets/js/rsvp.js`](assets/js/rsvp.js) hooks up to the modal's `#rsvp-form` automatically. No per-event configuration; segmentation (if needed) is a future Worker change documented above.
 
 ### Internship — Application modal *(currently closed)*
 The application modal is **disabled for this cohort**. The `#apply` section on
@@ -283,22 +357,24 @@ are string keys in that object and must match exactly).
 
 ---
 
-## What's currently hidden
+## What's currently hidden / dormant
 
-- **Before/After slider section** — preserved in `<template>` in [`index.html`](index.html); needs imagery
-- **Pricing section** — preserved in `<template>`; needs pricing decisions
-- **"Schedule" nav link** — commented out in the main nav, paired with the hidden Pricing section
+- **Before/After slider section** — preserved in `<template>` in [`index.html`](index.html); needs imagery before restoring.
+- **Pricing section** — preserved in `<template>` in [`index.html`](index.html); needs pricing decisions.
+- **Internship application modal** — markup removed; closed-state copy in place at `#apply`. [`assets/js/apply.js`](assets/js/apply.js) is left in the repo for the next cohort. Worker `/apply` route still exists in code but the **Airtable token is revoked**, so any direct POST fails 401 at the Airtable layer.
 
-To restore any of these, unwrap the template tag and uncomment the nav link.
+To restore the templated sections, unwrap the `<template>` tag. To restore the internship form, follow the 5-step recipe in the **Forms → Internship** section.
 
 ---
 
 ## Punch list / known limitations
 
-- **No rate limiting** on the Worker. Both routes are open to anyone POSTing; bots can mass-submit garbage. Cloudflare WAF rule (rate-limit by IP) or a tiny honeypot field would close this.
-- **No application dedupe**. `/apply` creates a new Airtable row every submit; a determined applicant can submit ten times. Consider adding an email-existence check before insert, or relying on Airtable views to flag dupes.
+- **No rate limiting** on the Worker. Both routes are open to anyone POSTing; bots can mass-submit garbage to Klaviyo. A Cloudflare WAF rule (rate-limit by IP) or a tiny honeypot field would close this.
+- **No per-event segmentation** on Klaviyo. Every Register from any event card lands in the same `WBWVDv` list. If event-specific campaigns matter, add a hidden `event` field on each event modal + map it as a custom property in `handleSubscribe()`, then segment in Klaviyo.
+- **Speaker → event linking is by hand.** When you add or rename an event, you must visit each speaker card and update the pill's `href` and label to match. No central source of truth.
+- **Modal title is hardcoded** to "Behind the Lens Webinar" on the Events page. If a second event card ships before the modal supports per-event titles, both Register buttons will open the same modal with the same title text.
 - **Cloudflare token** in operator's shell isn't persistent. If you want it across sessions, store via 1Password CLI or a sourced env file (outside the repo).
-- **Tailwind via CDN** is fine for marketing pages but blows up bundle size on every visit. If the site grows or perf matters, swap to a built Tailwind step.
+- **Tailwind via CDN** is fine for marketing pages but ships ~3MB of unused CSS on first paint. If the site grows or perf matters, swap to a built Tailwind step.
 
 ---
 

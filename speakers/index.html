@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Blk Girls Shoot — Speakers</title>
+<meta name="description" content="The photographers, founders, and creative directors stepping up to the BGS mic this year." />
+<meta property="og:title" content="BGS Speakers" />
+<meta property="og:description" content="The voices on the 2026 BGS stage." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="../assets/css/styles.css">
+
+<style>
+  /* Speaker card */
+  .speaker-card {
+    background: white;
+    border: 1px solid rgba(223,135,176,.18);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .speaker-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(223,135,176,.18);
+    border-color: var(--pink-deep);
+  }
+  .speaker-card__photo {
+    aspect-ratio: 1 / 1;
+    background-color: rgba(246,177,213,.35);
+    background-size: cover; background-position: center;
+  }
+  .speaker-card__body { padding: 1.5rem; display: flex; flex-direction: column; gap: .75rem; flex: 1 1 auto; }
+  .speaker-card__pills { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding-top: .25rem; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- 1. STICKY HEADER                                              -->
+<!-- ============================================================ -->
+<header class="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-pink-deep/20">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
+    <a href="../" class="flex items-center gap-3">
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="Blk Girls Shoot"
+           class="h-20 w-20 rounded-full"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+      <span class="submark-fallback" style="display:none;width:80px;height:80px;font-size:1.4rem">BGS</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-ink/80">
+      <a href="../" class="hover:text-pink-deep">Home</a>
+      <a href="../events/" class="hover:text-pink-deep">Events</a>
+      <a href="./" class="hover:text-pink-deep">Speakers</a>
+      <a href="../internship/" class="hover:text-pink-deep">Internship</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button type="button" id="mobile-menu-toggle" class="md:hidden p-2 -mr-1 text-ink" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <svg data-icon-hamburger xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg data-icon-close class="hidden" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+      </button>
+      <a href="../#rsvp" class="btn-primary">RSVP</a>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-pink-deep/20 bg-cream">
+    <nav class="px-6 py-3 flex flex-col text-base font-medium text-ink/80">
+      <a href="../" class="py-2 hover:text-pink-deep">Home</a>
+      <a href="../events/" class="py-2 hover:text-pink-deep">Events</a>
+      <a href="./" class="py-2 hover:text-pink-deep">Speakers</a>
+      <a href="../internship/" class="py-2 hover:text-pink-deep">Internship</a>
+    </nav>
+  </div>
+</header>
+<script src="../assets/js/nav.js" defer></script>
+
+<!-- ============================================================ -->
+<!-- 2. INTRO                                                      -->
+<!-- ============================================================ -->
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-pink-soft/30 via-cream to-cream"></div>
+  <div class="relative max-w-6xl mx-auto px-6 pt-12 pb-10 md:pt-16 md:pb-14">
+    <div class="max-w-3xl">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Speakers</p>
+      <h1 class="font-display text-5xl md:text-6xl leading-[0.95] text-ink mb-5">
+        Voices on the<br>
+        <span class="text-pink-deep">2026 BGS stage.</span>
+      </h1>
+      <p class="text-lg text-ink/70 max-w-xl">
+        Photographers, founders, and creative directors stepping up to the mic. New speakers
+        added as the cohort fills out.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 3. SPEAKER ROSTER                                             -->
+<!-- ============================================================ -->
+<section class="py-10 md:py-14 bg-cream">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5">
+
+      <!-- MAYA -->
+      <article class="speaker-card">
+        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/ac7d2e6e-e225-4cc6-f16b-da4d982b1200/public');"></div>
+        <div class="speaker-card__body">
+          <div>
+            <h3 class="font-display text-2xl text-ink leading-tight">Maya</h3>
+            <p class="text-pink-deep text-xs font-semibold tracking-widest uppercase mt-1">Brand Strategist · Messaging Coach</p>
+          </div>
+          <p class="text-ink/70 text-sm">
+            Fifteen years of helping Black, female, faith-based entrepreneurs own their voice and
+            build six-figure businesses. Transparent about the journey — in the field with her clients,
+            not above them.
+          </p>
+          <div class="speaker-card__pills">
+            <a href="../events/#behind-the-lens" class="event-pill">Behind the Lens Webinar</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- JESSY J -->
+      <article class="speaker-card">
+        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/af60bd5d-c823-4a7d-32cc-c65bb3600100/public');"></div>
+        <div class="speaker-card__body">
+          <div>
+            <h3 class="font-display text-2xl text-ink leading-tight">Jessy J</h3>
+            <p class="text-pink-deep text-xs font-semibold tracking-widest uppercase mt-1">Beauty &amp; Fashion Photographer</p>
+          </div>
+          <p class="text-ink/70 text-sm">
+            Visual artist working in beauty, editorial, and fashion between Dallas and LA. Lighting,
+            composition, and color tuned to bring brand visions to life — for editorial covers and
+            commercial campaigns alike.
+          </p>
+          <div class="speaker-card__pills">
+            <a href="../events/#behind-the-lens" class="event-pill">Behind the Lens Webinar</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SEVYN BUFFINS -->
+      <article class="speaker-card">
+        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/26b9f6ff-21fd-44bb-5a62-044866cc4900/public');"></div>
+        <div class="speaker-card__body">
+          <div>
+            <h3 class="font-display text-2xl text-ink leading-tight">Sevyn Buffins</h3>
+            <p class="text-pink-deep text-xs font-semibold tracking-widest uppercase mt-1">CEO, Social Media Ish</p>
+          </div>
+          <p class="text-ink/70 text-sm">
+            The go-to strategist for entrepreneurs turning content into a 24/7 sales engine.
+            Thousands of creators and business owners built profitable brands with her playbook.
+            Wife, mom, and the voice inside The Social Club.
+          </p>
+          <div class="speaker-card__pills">
+            <a href="../events/#behind-the-lens" class="event-pill">Behind the Lens Webinar</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SHAY -->
+      <article class="speaker-card">
+        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/7fcd2dc5-b52e-4d9f-fb3e-1e3bfb4fd900/public');"></div>
+        <div class="speaker-card__body">
+          <div>
+            <h3 class="font-display text-2xl text-ink leading-tight">Shay</h3>
+            <p class="text-pink-deep text-xs font-semibold tracking-widest uppercase mt-1">Founder, The Money Council®</p>
+          </div>
+          <p class="text-ink/70 text-sm">
+            Tax and accounting strategist on a mission to turn 15 entrepreneurs into millionaires
+            before she retires. First-gen college grad, soon-to-be CPA, raising a family while
+            building generational wealth.
+          </p>
+          <div class="speaker-card__pills">
+            <a href="../events/#behind-the-lens" class="event-pill">Behind the Lens Webinar</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 4. FOOTER                                                     -->
+<!-- ============================================================ -->
+<footer class="bg-cream border-t border-pink-deep/20 py-10">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="" class="h-10 w-10 rounded-full" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+        <span class="submark-fallback" style="display:none;width:40px;height:40px;font-size:0.95rem">BGS</span>
+      </div>
+      <div class="flex gap-6 text-sm text-ink/70">
+        <a href="https://instagram.com/blkgirlsshoot" class="hover:text-pink-deep">Instagram</a>
+        <a href="../" class="hover:text-pink-deep">Home</a>
+        <a href="mailto:info@blkgirlsshoot.net" class="hover:text-pink-deep">Contact</a>
+      </div>
+      <p class="text-xs text-ink/50">© 2026 Blk Girls Shoot. All rights reserved.</p>
+    </div>
+    <p class="text-center text-sm text-ink/60 mt-6">
+      Questions? Email us at
+      <a href="mailto:info@blkgirlsshoot.net" class="text-pink-deep hover:underline">info@blkgirlsshoot.net</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

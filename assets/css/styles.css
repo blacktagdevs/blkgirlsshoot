@@ -107,6 +107,23 @@ details[open] .faq-icon { transform: rotate(45deg); }
 .field:focus { outline: none; border-color: var(--pink-soft); background: rgba(255,255,255,.12); }
 .field::placeholder { color: rgba(255,255,255,.45); }
 
+/* ---- event pill (used on Speakers cards, can be a link or static) ---- */
+.event-pill {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  background: rgba(246, 177, 213, 0.45);
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+a.event-pill:hover { background: var(--pink-deep); color: white; transform: translateY(-1px); }
+
 /* ---- logo submark ---- */
 .submark-fallback {
   display: inline-flex; align-items: center; justify-content: center;

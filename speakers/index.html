@@ -36,7 +36,10 @@
   .speaker-card__photo {
     aspect-ratio: 1 / 1;
     background-color: rgba(246,177,213,.35);
-    background-size: cover; background-position: center top;
+    background-size: cover;
+    /* Per-card background-position is set inline since each portrait has a
+       different head position. Default here is a safe-ish "upper third". */
+    background-position: center 20%;
   }
   .speaker-card__body { padding: 1.5rem; display: flex; flex-direction: column; gap: .75rem; flex: 1 1 auto; }
   .speaker-card__pills { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding-top: .25rem; }
@@ -85,7 +88,7 @@
 <!-- ============================================================ -->
 <section class="relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-pink-soft/30 via-cream to-cream"></div>
-  <div class="relative max-w-6xl mx-auto px-6 pt-12 pb-10 md:pt-16 md:pb-14">
+  <div class="relative max-w-6xl mx-auto px-6 pt-12 pb-4 md:pt-16 md:pb-6">
     <div class="max-w-3xl">
       <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Speakers</p>
       <h1 class="font-display text-5xl md:text-6xl leading-[0.95] text-ink mb-5">
@@ -103,13 +106,13 @@
 <!-- ============================================================ -->
 <!-- 3. SPEAKER ROSTER                                             -->
 <!-- ============================================================ -->
-<section class="py-10 md:py-14 bg-cream">
+<section class="pt-2 pb-10 md:pt-4 md:pb-14 bg-cream">
   <div class="max-w-6xl mx-auto px-6">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5">
 
       <!-- MAYA -->
       <article class="speaker-card">
-        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/ac7d2e6e-e225-4cc6-f16b-da4d982b1200/public');"></div>
+        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/ac7d2e6e-e225-4cc6-f16b-da4d982b1200/public'); background-position: center 18%;"></div>
         <div class="speaker-card__body">
           <div>
             <h3 class="font-display text-2xl text-ink leading-tight">Maya</h3>
@@ -128,7 +131,7 @@
 
       <!-- JESSY J -->
       <article class="speaker-card">
-        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/af60bd5d-c823-4a7d-32cc-c65bb3600100/public');"></div>
+        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/af60bd5d-c823-4a7d-32cc-c65bb3600100/public'); background-position: center 10%;"></div>
         <div class="speaker-card__body">
           <div>
             <h3 class="font-display text-2xl text-ink leading-tight">Jessy J</h3>
@@ -147,7 +150,7 @@
 
       <!-- SEVYN BUFFINS -->
       <article class="speaker-card">
-        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/26b9f6ff-21fd-44bb-5a62-044866cc4900/public');"></div>
+        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/26b9f6ff-21fd-44bb-5a62-044866cc4900/public'); background-position: center 20%;"></div>
         <div class="speaker-card__body">
           <div>
             <h3 class="font-display text-2xl text-ink leading-tight">Sevyn Buffins</h3>
@@ -166,7 +169,7 @@
 
       <!-- SHAY -->
       <article class="speaker-card">
-        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/7fcd2dc5-b52e-4d9f-fb3e-1e3bfb4fd900/public');"></div>
+        <div class="speaker-card__photo" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/7fcd2dc5-b52e-4d9f-fb3e-1e3bfb4fd900/public'); background-position: center 25%;"></div>
         <div class="speaker-card__body">
           <div>
             <h3 class="font-display text-2xl text-ink leading-tight">Shay</h3>

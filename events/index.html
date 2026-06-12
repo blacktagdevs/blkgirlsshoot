@@ -118,21 +118,44 @@
 <!-- ============================================================ -->
 <section class="pt-8 md:pt-12 pb-4 md:pb-6 bg-cream">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="bg-ink text-cream rounded-3xl px-7 py-9 md:px-12 md:py-14 grid md:grid-cols-[1fr_auto] gap-8 md:gap-10 items-center">
+    <div class="bg-ink text-cream rounded-3xl px-7 py-9 md:px-12 md:py-14 grid md:grid-cols-[1fr_auto] gap-8 md:gap-12 items-start">
       <div>
         <span class="inline-block bg-pink-deep text-white text-[0.7rem] font-semibold uppercase tracking-[0.18em] px-3 py-1.5 rounded-md mb-5">June – December 2026</span>
         <h1 class="font-display text-4xl md:text-5xl leading-[1.05] mb-4">
           The Official BGS <br>
           <span class="text-pink-deep">Pop-Up Calendar</span>
         </h1>
-        <p class="text-cream/75 text-base md:text-lg max-w-xl">
+        <p class="text-cream/75 text-base md:text-lg max-w-xl mb-7">
           Webinars, pop-up shoots, panels, brunches — wherever Black women behind the
           lens are gathering, you'll find us. Hit Register on any card below and we'll
           send you everything you need to show up.
         </p>
+
+        <!-- Countdown to ticket sales -->
+        <div>
+          <p class="text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-pink-soft mb-3">Tickets go live in</p>
+          <div id="countdown" class="grid grid-cols-4 gap-2 max-w-md">
+            <div class="bg-white/10 rounded-lg px-2 py-3 text-center">
+              <p class="font-display text-3xl md:text-4xl text-cream leading-none" data-cd="days">--</p>
+              <p class="text-[0.6rem] tracking-widest uppercase text-cream/60 mt-2">Days</p>
+            </div>
+            <div class="bg-white/10 rounded-lg px-2 py-3 text-center">
+              <p class="font-display text-3xl md:text-4xl text-cream leading-none" data-cd="hours">--</p>
+              <p class="text-[0.6rem] tracking-widest uppercase text-cream/60 mt-2">Hrs</p>
+            </div>
+            <div class="bg-white/10 rounded-lg px-2 py-3 text-center">
+              <p class="font-display text-3xl md:text-4xl text-cream leading-none" data-cd="minutes">--</p>
+              <p class="text-[0.6rem] tracking-widest uppercase text-cream/60 mt-2">Min</p>
+            </div>
+            <div class="bg-white/10 rounded-lg px-2 py-3 text-center">
+              <p class="font-display text-3xl md:text-4xl text-cream leading-none" data-cd="seconds">--</p>
+              <p class="text-[0.6rem] tracking-widest uppercase text-cream/60 mt-2">Sec</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hidden md:flex items-center justify-end">
-        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/766aafe5-4be6-4d11-b999-ef42b4cbb500/public" alt="" class="h-56 lg:h-80 xl:h-96 w-auto opacity-95" loading="lazy">
+      <div class="hidden md:flex items-start justify-end -mt-4 lg:-mt-8">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/766aafe5-4be6-4d11-b999-ef42b4cbb500/public" alt="" class="h-64 lg:h-[28rem] xl:h-[32rem] w-auto opacity-95" loading="lazy">
       </div>
     </div>
   </div>
@@ -151,12 +174,12 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-      <!-- EVENT CARD: Behind The Lens Webinar -->
-      <article id="behind-the-lens" class="event-card">
-        <div class="event-card__flyer" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/c0e748bb-64f9-4381-8e11-f40b0f858000/public');" role="img" aria-label="Behind The Lens Webinar flyer"></div>
+      <!-- EVENT CARD: Behind The Lens Webinar — Session 1 -->
+      <article id="behind-the-lens-session-1" class="event-card">
+        <div class="event-card__flyer" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/c0e748bb-64f9-4381-8e11-f40b0f858000/public');" role="img" aria-label="Behind The Lens Webinar (Session 1) flyer"></div>
         <div class="event-card__body">
-          <p class="event-card__eyebrow">Blk Girls Shoot Popup</p>
-          <h3 class="event-card__name font-display text-2xl text-ink mb-3">Behind The Lens Webinar</h3>
+          <p class="event-card__eyebrow">Blk Girls Shoot Popup · Session 1</p>
+          <h3 class="event-card__name font-display text-2xl text-ink mb-3">Behind The Lens Webinar (Session 1)</h3>
           <p class="event-card__details text-ink/70 text-sm">
             Where creativity meets strategy and community. Four live sessions with the BGS
             speakers, taught from inside the actual workflow.
@@ -169,6 +192,31 @@
           </div>
           <div class="event-card__meta">
             <span>📅 Thursday, June 18, 2026</span>
+            <span>🕐 7:30 PM EST</span>
+            <span>📍 Live on Zoom</span>
+          </div>
+          <button type="button" data-open-rsvp class="btn-primary mt-5">Register</button>
+        </div>
+      </article>
+
+      <!-- EVENT CARD: Behind The Lens Webinar — Session 2 -->
+      <article id="behind-the-lens-session-2" class="event-card">
+        <div class="event-card__flyer" style="background-image:url('https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/c0e748bb-64f9-4381-8e11-f40b0f858000/public');" role="img" aria-label="Behind The Lens Webinar (Session 2) flyer"></div>
+        <div class="event-card__body">
+          <p class="event-card__eyebrow">Blk Girls Shoot Popup · Session 2</p>
+          <h3 class="event-card__name font-display text-2xl text-ink mb-3">Behind The Lens Webinar (Session 2)</h3>
+          <p class="event-card__details text-ink/70 text-sm">
+            Where creativity meets strategy and community. Four live sessions with the BGS
+            speakers, taught from inside the actual workflow.
+          </p>
+          <div class="flex flex-wrap gap-1.5 mt-3">
+            <span class="event-pill">Creative Direction + Shooting</span>
+            <span class="event-pill">Marketing + Branding</span>
+            <span class="event-pill">Marketing + AI for Photographers</span>
+            <span class="event-pill">Content + Visibility</span>
+          </div>
+          <div class="event-card__meta">
+            <span>📅 Wednesday, June 24, 2026</span>
             <span>🕐 7:30 PM EST</span>
             <span>📍 Live on Zoom</span>
           </div>
@@ -258,6 +306,46 @@
 
 <!-- Shared submit handler from the main site: looks for #rsvp-form + #rsvp-status + #rsvp-success -->
 <script src="../assets/js/rsvp.js" defer></script>
+
+<!-- Ticket sales countdown (target: 2026-06-26 00:00 EDT) -->
+<script>
+  (function () {
+    const target = new Date('2026-06-26T00:00:00-04:00').getTime();
+    const els = {
+      days: document.querySelector('[data-cd="days"]'),
+      hours: document.querySelector('[data-cd="hours"]'),
+      minutes: document.querySelector('[data-cd="minutes"]'),
+      seconds: document.querySelector('[data-cd="seconds"]'),
+    };
+    if (!els.days) return;
+
+    let timerId = null;
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        const root = document.getElementById('countdown');
+        if (root) {
+          root.outerHTML = '<p class="font-display text-2xl md:text-3xl text-cream">Tickets are live — grab yours below.</p>';
+        }
+        if (timerId) clearInterval(timerId);
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      els.days.textContent = pad(d);
+      els.hours.textContent = pad(h);
+      els.minutes.textContent = pad(m);
+      els.seconds.textContent = pad(s);
+    }
+
+    tick();
+    timerId = setInterval(tick, 1000);
+  })();
+</script>
 
 </body>
 </html>

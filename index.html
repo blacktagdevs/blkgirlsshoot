@@ -32,7 +32,23 @@
 <!-- 1. STICKY HEADER                                              -->
 <!-- EDIT BLOCK 3 — Replace logo PNG + CTA destination             -->
 <!-- ============================================================ -->
-<header class="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-pink-deep/20">
+<header class="sticky top-0 z-50 bg-white border-b border-pink-deep/20">
+  <!-- TICKET LAUNCH BANNER -->
+  <div class="bg-pink-deep py-2 px-6 text-center text-white text-xs">
+    <span id="tl-pre" class="inline-flex items-center justify-center gap-3 flex-wrap">
+      <span class="font-semibold uppercase tracking-[0.15em]">Tickets go live in</span>
+      <span class="font-mono font-bold tabular-nums">
+        <span id="tl-days">--</span>d&thinsp;
+        <span id="tl-hours">--</span>h&thinsp;
+        <span id="tl-minutes">--</span>m&thinsp;
+        <span id="tl-seconds">--</span>s
+      </span>
+    </span>
+    <span id="tl-live" style="display:none" class="items-center justify-center gap-3 flex-wrap">
+      <span class="font-semibold uppercase tracking-[0.15em]">Tickets are live!</span>
+      <span data-buy-tickets class="font-bold underline underline-offset-2 cursor-pointer hover:no-underline">Grab yours →</span>
+    </span>
+  </div>
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
     <a href="#top" class="flex items-center gap-3">
       <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="Blk Girls Shoot"
@@ -45,25 +61,34 @@
       <a href="events/" class="hover:text-pink-deep">Events</a>
       <a href="speakers/" class="hover:text-pink-deep">Speakers</a>
       <a href="internship/" class="hover:text-pink-deep">Internship</a>
+      <a href="about/" class="hover:text-pink-deep">About</a>
     </nav>
     <div class="flex items-center gap-2">
       <button type="button" id="mobile-menu-toggle" class="md:hidden p-2 -mr-1 text-ink" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
         <svg data-icon-hamburger xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
         <svg data-icon-close class="hidden" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
       </button>
-      <a href="#rsvp" class="btn-primary">RSVP</a>
+      <button type="button" data-buy-tickets class="btn-primary">Get Tickets</button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden md:hidden border-t border-pink-deep/20 bg-cream">
+  <div id="mobile-menu" class="hidden md:hidden border-t border-pink-deep/20 bg-white">
     <nav class="px-6 py-3 flex flex-col text-base font-medium text-ink/80">
       <a href="/" class="py-2 hover:text-pink-deep">Home</a>
       <a href="events/" class="py-2 hover:text-pink-deep">Events</a>
       <a href="speakers/" class="py-2 hover:text-pink-deep">Speakers</a>
       <a href="internship/" class="py-2 hover:text-pink-deep">Internship</a>
+      <a href="about/" class="py-2 hover:text-pink-deep">About</a>
     </nav>
   </div>
 </header>
 <script src="assets/js/nav.js" defer></script>
+
+<!-- Eventbrite checkout modal trigger — wired by tickets.js -->
+<button id="eventbrite-widget-modal-trigger-1992306790241" type="button"
+        style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden"
+        aria-hidden="true" tabindex="-1"></button>
+<noscript><a href="https://www.eventbrite.com/e/blk-girls-shoot-tickets-1992306790241" rel="noopener noreferrer" target="_blank">Buy Tickets on Eventbrite</a></noscript>
+<script src="assets/js/tickets.js" defer></script>
 
 <!-- ============================================================ -->
 <!-- 2. HERO                                                       -->
@@ -71,7 +96,7 @@
 <!-- ============================================================ -->
 <section id="top" class="relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-pink-soft/30 via-cream to-cream"></div>
-  <div class="relative max-w-6xl mx-auto px-6 pt-12 pb-16 md:pt-16 md:pb-20 grid md:grid-cols-2 gap-12 items-center">
+  <div class="relative max-w-6xl mx-auto px-6 pt-8 pb-10 md:pt-12 md:pb-14 grid md:grid-cols-2 gap-12 items-center">
     <div>
       <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-5">
         <!-- EDIT: event eyebrow -->
@@ -85,7 +110,7 @@
         BGS is a three-day conference weekend for Black women photographers to sharpen their craft, grow their business, and be in rooms that actually pour back into them. Workshops. Industry conversations. Real community. Labor Day Weekend in Atlanta.
       </p>
       <div class="flex flex-wrap gap-4">
-        <a href="#rsvp" class="btn-primary">Reserve Your Spot</a>
+        <button type="button" data-buy-tickets class="btn-primary">Get Your Tickets</button>
         <a href="#about" class="btn-ghost">Learn More</a>
       </div>
       <div class="mt-10 flex items-center gap-6 text-sm text-ink/60">
@@ -112,9 +137,9 @@
 <!-- 3. ABOUT / OUR WORK GALLERY                                   -->
 <!-- EDIT BLOCK 5 — Gallery photos + about copy                    -->
 <!-- ============================================================ -->
-<section id="about" class="py-12 md:py-16 bg-cream">
+<section id="about" class="py-8 md:py-12 bg-cream">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="max-w-2xl mb-14">
+    <div class="max-w-2xl mb-10">
       <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">2026 · The Weekend · The Experience</p>
       <h2 class="font-display text-4xl md:text-5xl text-ink mb-5">
         The room we needed, so we built it.
@@ -160,9 +185,9 @@
 <!-- 4. THE EXPERIENCE — 3 event pillars                           -->
 <!-- EDIT BLOCK 6 — Pillar titles + descriptions                   -->
 <!-- ============================================================ -->
-<section id="experience" class="py-12 md:py-16 bg-pink-soft/20">
+<section id="experience" class="py-8 md:py-12 bg-pink-soft/20">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-14">
+    <div class="text-center mb-10">
       <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">What to Expect</p>
       <h2 class="font-display text-4xl md:text-5xl text-ink max-w-2xl mx-auto">
         Three days built with intention.
@@ -215,7 +240,7 @@
 <!-- To restore, remove the surrounding <template> tags.           -->
 <!-- ============================================================ -->
 <template id="section-before-after">
-<section class="py-12 md:py-16 bg-cream">
+<section class="py-8 md:py-12 bg-cream">
   <div class="max-w-5xl mx-auto px-6">
     <div class="text-center mb-12">
       <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Behind the Lens</p>
@@ -238,7 +263,7 @@
 <!-- 6. WHY ATTEND — 4 checkmark benefits, dark section            -->
 <!-- EDIT BLOCK 8 — Replace the 4 benefit items                    -->
 <!-- ============================================================ -->
-<section class="py-12 md:py-16 bg-ink text-cream">
+<section class="py-8 md:py-12 bg-ink text-cream">
   <div class="max-w-5xl mx-auto px-6">
     <div class="grid md:grid-cols-2 gap-12 items-start">
       <div>
@@ -280,87 +305,98 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- 7. WHAT'S INCLUDED — TEMPORARILY HIDDEN.                      -->
-<!-- To restore, remove the surrounding <template> tags AND        -->
-<!-- uncomment the "Schedule" nav link in the header.              -->
+<!-- 7. PASSES                                                      -->
 <!-- ============================================================ -->
-<template id="section-pricing">
-<section id="schedule" class="py-12 md:py-16 bg-cream">
+<section id="passes" class="py-8 md:py-12 bg-cream">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-14">
+    <div class="text-center mb-10">
       <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Passes</p>
       <h2 class="font-display text-4xl md:text-5xl text-ink">Two ways to be in the room.</h2>
     </div>
 
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-white p-10 rounded-2xl border border-pink-deep/20">
+      <div class="bg-white p-10 rounded-2xl border border-pink-deep/20 flex flex-col">
         <p class="text-pink-deep font-semibold tracking-widest text-xs uppercase mb-3">Community Pass</p>
-        <h3 class="font-display text-4xl text-ink mb-2">$<span>—</span></h3>
+        <h3 class="font-display text-4xl text-ink mb-2">$199</h3>
         <p class="text-ink/60 mb-7 text-sm">Full weekend access · Community Day + Send-Off</p>
-        <ul class="space-y-3 text-ink/80 text-sm">
+        <ul class="space-y-3 text-ink/80 text-sm flex-1">
           <li class="flex gap-3"><span class="text-pink-deep">✓</span> All workshops and panels</li>
           <li class="flex gap-3"><span class="text-pink-deep">✓</span> Closing dinner + screening</li>
           <li class="flex gap-3"><span class="text-pink-deep">✓</span> BGS welcome kit</li>
           <li class="flex gap-3"><span class="text-pink-deep">✓</span> Community directory access</li>
         </ul>
+        <button type="button" data-buy-tickets class="btn-primary mt-8 text-center">Get Your Pass</button>
       </div>
-      <div class="bg-pink-deep text-white p-10 rounded-2xl relative overflow-hidden">
+      <div class="bg-pink-deep text-white p-10 rounded-2xl relative overflow-hidden flex flex-col">
         <span class="absolute top-5 right-5 bg-white text-pink-deep text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Limited</span>
         <p class="font-semibold tracking-widest text-xs uppercase mb-3 opacity-90">Creative Pass</p>
-        <h3 class="font-display text-4xl mb-2">$<span>—</span></h3>
+        <h3 class="font-display text-4xl mb-2">$449</h3>
         <p class="mb-7 text-sm opacity-90">Everything in Community + shoot day spot</p>
-        <ul class="space-y-3 text-sm">
+        <ul class="space-y-3 text-sm flex-1">
           <li class="flex gap-3"><span>✓</span> Full Community Pass benefits</li>
           <li class="flex gap-3"><span>✓</span> On-set for the campaign shoot</li>
           <li class="flex gap-3"><span>✓</span> Hair, makeup, and styling</li>
           <li class="flex gap-3"><span>✓</span> High-res campaign images</li>
           <li class="flex gap-3"><span>✓</span> Feature in 2026 campaign release</li>
         </ul>
+        <button type="button" data-buy-tickets class="mt-8 inline-block bg-white text-pink-deep font-semibold text-sm uppercase tracking-[0.04em] px-8 py-4 rounded-full transition hover:bg-cream text-center">Get Your Pass</button>
       </div>
     </div>
   </div>
 </section>
-</template>
 
 <!-- ============================================================ -->
-<!-- 8. MEET MECCA — Founder story, split layout                   -->
-<!-- EDIT BLOCK 10 — Portrait + story copy                         -->
+<!-- 8. WHILE YOU'RE HERE — Atlanta city picks                     -->
 <!-- ============================================================ -->
-<section class="py-12 md:py-16 bg-pink-soft/20">
-  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-    <div class="order-2 md:order-1">
-      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Meet Mecca</p>
-      <h2 class="font-display text-4xl md:text-5xl text-ink mb-6">
-        I created BGS from experience.
-      </h2>
-      <div class="space-y-4 text-ink/75 text-lg">
-        <p>
-          I'm Mecca Clarke – photographer, creative entrepreneur, and founder of Blk Girls Shoot.
-        </p>
-        <p>
-          After years of being one of the only Black women in creative spaces, I wanted to build something that felt different. Something intentional. Something that centered us fully – not as an afterthought, but as the standard.
-        </p>
-        <p>
-          What started as a small creative meetup has grown into a conference weekend bringing together Black women photographers from all over to learn, connect, and build together.
-        </p>
-        <p>
-          BGS keeps growing because the need for spaces like this is still real. And I'm really excited for what we're building in 2026.
-        </p>
-      </div>
+<section class="py-8 md:py-12 bg-pink-soft/20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-12">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">While You're Here</p>
+      <h2 class="font-display text-4xl md:text-5xl text-ink mb-4">Atlanta is worth the trip.</h2>
+      <p class="text-ink/70">You're coming for BGS, but Atlanta will give you a lot more to work with. A few places worth putting on the list.</p>
     </div>
-    <div class="order-1 md:order-2">
-      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/7d69d756-7f81-4dd4-0d86-d75110e81100/public" alt="Mecca Clarke"
-           class="w-full aspect-[4/5] object-cover rounded-2xl shadow-xl"
-           onerror="this.style.background='linear-gradient(135deg,#F6B1D5,#DF87B0)';this.removeAttribute('src')">
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="bg-white rounded-xl p-6 border border-pink-deep/10 hover:border-pink-deep/30 hover:shadow-md transition-all">
+        <p class="text-pink-deep text-[0.65rem] font-semibold uppercase tracking-[0.2em] mb-2">Culture</p>
+        <h3 class="font-display text-xl text-ink leading-tight mb-1">High Museum of Art</h3>
+        <p class="text-ink/50 text-xs">Midtown Atlanta</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 border border-pink-deep/10 hover:border-pink-deep/30 hover:shadow-md transition-all">
+        <p class="text-pink-deep text-[0.65rem] font-semibold uppercase tracking-[0.2em] mb-2">Culture</p>
+        <h3 class="font-display text-xl text-ink leading-tight mb-1">National Center for Civil &amp; Human Rights</h3>
+        <p class="text-ink/50 text-xs">Downtown Atlanta</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 border border-pink-deep/10 hover:border-pink-deep/30 hover:shadow-md transition-all">
+        <p class="text-pink-deep text-[0.65rem] font-semibold uppercase tracking-[0.2em] mb-2">Food &amp; Market</p>
+        <h3 class="font-display text-xl text-ink leading-tight mb-1">Ponce City Market</h3>
+        <p class="text-ink/50 text-xs">Old Fourth Ward</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 border border-pink-deep/10 hover:border-pink-deep/30 hover:shadow-md transition-all">
+        <p class="text-pink-deep text-[0.65rem] font-semibold uppercase tracking-[0.2em] mb-2">Outdoors</p>
+        <h3 class="font-display text-xl text-ink leading-tight mb-1">Atlanta BeltLine</h3>
+        <p class="text-ink/50 text-xs">Citywide</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 border border-pink-deep/10 hover:border-pink-deep/30 hover:shadow-md transition-all">
+        <p class="text-pink-deep text-[0.65rem] font-semibold uppercase tracking-[0.2em] mb-2">Food</p>
+        <h3 class="font-display text-xl text-ink leading-tight mb-1">Busy Bee Cafe</h3>
+        <p class="text-ink/50 text-xs">Vine City · An Atlanta institution since 1947</p>
+      </div>
+      <div class="bg-white rounded-xl p-6 border border-pink-deep/10 hover:border-pink-deep/30 hover:shadow-md transition-all">
+        <p class="text-pink-deep text-[0.65rem] font-semibold uppercase tracking-[0.2em] mb-2">Neighborhood</p>
+        <h3 class="font-display text-xl text-ink leading-tight mb-1">Inman Park &amp; Little Five Points</h3>
+        <p class="text-ink/50 text-xs">East Atlanta</p>
+      </div>
     </div>
   </div>
 </section>
+
 
 <!-- ============================================================ -->
 <!-- 9. FAQ — 8 accordion questions                                -->
 <!-- EDIT BLOCK 11 — Questions + answers                           -->
 <!-- ============================================================ -->
-<section id="faq" class="py-12 md:py-16 bg-cream">
+<section id="faq" class="py-8 md:py-12 bg-cream">
   <div class="max-w-3xl mx-auto px-6">
     <div class="text-center mb-12">
       <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">FAQ</p>
@@ -428,7 +464,7 @@
 <!--     /Eventbrite endpoint, OR                                  -->
 <!-- (b) Replace this whole section with their embed snippet.      -->
 <!-- ============================================================ -->
-<section id="rsvp" class="py-12 md:py-16 bg-ink text-cream">
+<section id="rsvp" class="py-8 md:py-12 bg-ink text-cream">
   <div class="max-w-3xl mx-auto px-6">
     <div class="text-center mb-12">
       <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-4">Become a BGS Insider</p>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>About — Blk Girls Shoot</title>
+<meta name="description" content="Meet Mecca Clarke, photographer, creative entrepreneur, and founder of Blk Girls Shoot." />
+<meta property="og:title" content="About BGS" />
+<meta property="og:description" content="Meet the founder behind Blk Girls Shoot." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- 1. STICKY HEADER                                              -->
+<!-- ============================================================ -->
+<header class="sticky top-0 z-50 bg-white border-b border-pink-deep/20">
+  <!-- TICKET LAUNCH BANNER -->
+  <div class="bg-pink-deep py-2 px-6 text-center text-white text-xs">
+    <span id="tl-pre" class="inline-flex items-center justify-center gap-3 flex-wrap">
+      <span class="font-semibold uppercase tracking-[0.15em]">Tickets go live in</span>
+      <span class="font-mono font-bold tabular-nums">
+        <span id="tl-days">--</span>d&thinsp;
+        <span id="tl-hours">--</span>h&thinsp;
+        <span id="tl-minutes">--</span>m&thinsp;
+        <span id="tl-seconds">--</span>s
+      </span>
+    </span>
+    <span id="tl-live" style="display:none" class="items-center justify-center gap-3 flex-wrap">
+      <span class="font-semibold uppercase tracking-[0.15em]">Tickets are live!</span>
+      <span data-buy-tickets class="font-bold underline underline-offset-2 cursor-pointer hover:no-underline">Grab yours →</span>
+    </span>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
+    <a href="../" class="flex items-center gap-3">
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="Blk Girls Shoot"
+           class="h-20 w-20 rounded-full"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+      <span class="submark-fallback" style="display:none;width:80px;height:80px;font-size:1.4rem">BGS</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-ink/80">
+      <a href="../" class="hover:text-pink-deep">Home</a>
+      <a href="../events/" class="hover:text-pink-deep">Events</a>
+      <a href="../speakers/" class="hover:text-pink-deep">Speakers</a>
+      <a href="../internship/" class="hover:text-pink-deep">Internship</a>
+      <a href="./" class="hover:text-pink-deep">About</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button type="button" id="mobile-menu-toggle" class="md:hidden p-2 -mr-1 text-ink" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <svg data-icon-hamburger xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg data-icon-close class="hidden" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+      </button>
+      <button type="button" data-buy-tickets class="btn-primary">Get Tickets</button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-pink-deep/20 bg-white">
+    <nav class="px-6 py-3 flex flex-col text-base font-medium text-ink/80">
+      <a href="../" class="py-2 hover:text-pink-deep">Home</a>
+      <a href="../events/" class="py-2 hover:text-pink-deep">Events</a>
+      <a href="../speakers/" class="py-2 hover:text-pink-deep">Speakers</a>
+      <a href="../internship/" class="py-2 hover:text-pink-deep">Internship</a>
+      <a href="./" class="py-2 hover:text-pink-deep">About</a>
+    </nav>
+  </div>
+</header>
+<script src="../assets/js/nav.js" defer></script>
+
+<!-- Eventbrite checkout modal trigger — wired by tickets.js -->
+<button id="eventbrite-widget-modal-trigger-1992306790241" type="button"
+        style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden"
+        aria-hidden="true" tabindex="-1"></button>
+<noscript><a href="https://www.eventbrite.com/e/blk-girls-shoot-tickets-1992306790241" rel="noopener noreferrer" target="_blank">Buy Tickets on Eventbrite</a></noscript>
+<script src="../assets/js/tickets.js" defer></script>
+
+<!-- ============================================================ -->
+<!-- 2. MEET MECCA                                                  -->
+<!-- ============================================================ -->
+<section id="top" class="py-16 md:py-24 bg-pink-soft/20">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <div class="order-2 md:order-1">
+      <p class="text-pink-deep font-semibold tracking-[0.2em] text-xs uppercase mb-4">Meet Mecca</p>
+      <h1 class="font-display text-4xl md:text-5xl text-ink mb-6">
+        I created BGS from experience.
+      </h1>
+      <div class="space-y-4 text-ink/75 text-lg">
+        <p>
+          I'm Mecca Clarke – photographer, creative entrepreneur, and founder of Blk Girls Shoot.
+        </p>
+        <p>
+          After years of being one of the only Black women in creative spaces, I wanted to build something that felt different. Something intentional. Something that centered us fully – not as an afterthought, but as the standard.
+        </p>
+        <p>
+          What started as a small creative meetup has grown into a conference weekend bringing together Black women photographers from all over to learn, connect, and build together.
+        </p>
+        <p>
+          BGS keeps growing because the need for spaces like this is still real. And I'm really excited for what we're building in 2026.
+        </p>
+      </div>
+      <div class="mt-8">
+        <button type="button" data-buy-tickets class="btn-primary">Get Your Tickets</button>
+      </div>
+    </div>
+    <div class="order-1 md:order-2">
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/7d69d756-7f81-4dd4-0d86-d75110e81100/public" alt="Mecca Clarke"
+           class="w-full aspect-[4/5] object-cover rounded-2xl shadow-xl"
+           onerror="this.style.background='linear-gradient(135deg,#F6B1D5,#DF87B0)';this.removeAttribute('src')">
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 3. BGS STORY                                                   -->
+<!-- ============================================================ -->
+<section class="py-12 md:py-16 bg-ink text-cream">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-4">The Community</p>
+    <h2 class="font-display text-4xl md:text-5xl mb-6">The room we needed,<br>so we built it.</h2>
+    <div class="space-y-4 text-cream/70 text-lg max-w-3xl mx-auto">
+      <p>Blk Girls Shoot started because too many of us were showing up to shoots, sets, conferences, and creative spaces as the only one in the room.</p>
+      <p>So we created our own.</p>
+      <p>BGS brings Black women photographers together for a weekend that's equal parts education, community, creativity, and business. This isn't about surface-level networking or sitting quietly in the back of a panel. It's about getting in the room, learning in real time, building relationships, and leaving better than you came.</p>
+      <p>Every year the community gets bigger. Every year the work gets better. And every year the room feels exactly like what we deserved all along.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 4. FOOTER                                                      -->
+<!-- ============================================================ -->
+<footer class="bg-cream border-t border-pink-deep/20 py-10">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="" class="h-10 w-10 rounded-full" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+        <span class="submark-fallback" style="display:none;width:40px;height:40px;font-size:0.95rem">BGS</span>
+      </div>
+      <div class="flex gap-6 text-sm text-ink/70">
+        <a href="https://instagram.com/blkgirlsshoot" class="hover:text-pink-deep">Instagram</a>
+        <a href="../" class="hover:text-pink-deep">Home</a>
+        <a href="mailto:info@blkgirlsshoot.net" class="hover:text-pink-deep">Contact</a>
+      </div>
+      <p class="text-xs text-ink/50">© 2026 Blk Girls Shoot. All rights reserved.</p>
+    </div>
+    <p class="text-center text-sm text-ink/60 mt-6">
+      Questions? Email us at
+      <a href="mailto:info@blkgirlsshoot.net" class="text-pink-deep hover:underline">info@blkgirlsshoot.net</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

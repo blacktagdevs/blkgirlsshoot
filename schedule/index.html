@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Full Schedule — Blk Girls Shoot 2026</title>
+<meta name="description" content="The full BGS 2026 schedule. Friday's opening night gallery, Saturday's workshop day, and Sunday's business summit. Hour-by-hour agenda for the whole weekend in Atlanta." />
+<meta property="og:title" content="BGS 2026 Full Schedule" />
+<meta property="og:description" content="Hour-by-hour agenda for Blk Girls Shoot 2026. Friday gallery night, Saturday workshops, Sunday business summit." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Shared brand tokens + components — same file the main site uses. -->
+<link rel="stylesheet" href="../assets/css/styles.css">
+
+<style>
+  /* Schedule-only components. Brand tokens come from the shared sheet. */
+  .day-banner {
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.75rem 2rem;
+    background: var(--ink);
+    color: white;
+    border-radius: 20px 20px 0 0;
+  }
+  .day-banner .day-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--pink-soft);
+    flex-shrink: 0;
+  }
+  .day-banner .day-title { font-family: var(--font-display); font-size: 1.75rem; line-height: 1.1; }
+  .day-banner .day-sub  { color: var(--pink-soft); font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-bottom: .25rem; }
+  .day-banner .day-time { color: white; font-size: .95rem; font-weight: 500; margin-top: .35rem; }
+  .day-banner .day-address {
+    color: rgba(255,255,255,.7);
+    font-size: .82rem; font-weight: 400;
+    margin-top: .35rem; line-height: 1.4;
+  }
+  .day-banner .day-address::before { content: '📍 '; margin-right: .15rem; }
+
+  .timeline {
+    position: relative;
+    background: white;
+    border: 1.5px solid rgba(223,135,176,.2);
+    border-top: none;
+    border-radius: 0 0 20px 20px;
+    padding: 2rem 1.5rem 2.5rem;
+  }
+
+  .timeline-item.sparkle .timeline-content {
+    background: linear-gradient(135deg, rgba(246,177,213,.25) 0%, #fff 100%);
+    border-left: 3px solid var(--pink-deep);
+    border-radius: 12px;
+    padding: 1rem 1.25rem 1rem 1.5rem;
+    margin-left: 1.75rem;
+  }
+  .timeline-item.sparkle .timeline-content h4 { color: var(--pink-deep); }
+  @media (max-width: 640px) {
+    .timeline-item.sparkle .timeline-content { margin-left: 1.75rem; padding-left: 1rem; }
+  }
+
+  .timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: calc(1.5rem + 110px + .75rem);
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--pink-deep) 0%, var(--pink-soft) 100%);
+    z-index: 0;
+  }
+
+  .timeline-time {
+    text-align: right;
+    padding-top: .35rem;
+    font-family: var(--font-display);
+    color: var(--pink-deep);
+    font-size: 1.15rem;
+    line-height: 1.2;
+    z-index: 2;
+  }
+  .timeline-time .time-secondary {
+    display: block;
+    font-family: var(--font-body);
+    color: rgba(26,26,26,.5);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: .25rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: calc(1.5rem + 110px + .75rem);
+    top: 1.9rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--pink-deep);
+    box-shadow: 0 0 0 4px white, 0 0 0 6px var(--pink-deep);
+    transform: translateX(-50%);
+    z-index: 3;
+  }
+
+  .timeline-content { padding-left: 1.75rem; z-index: 2; position: relative; }
+  .timeline-content h4 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: .4rem;
+  }
+  .timeline-content p { color: rgba(26,26,26,.72); font-size: .92rem; line-height: 1.55; }
+  .timeline-content .speaker {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-top: .5rem;
+  }
+  .timeline-content .sponsor {
+    display: inline-block;
+    background: rgba(246,177,213,.3);
+    color: var(--pink-deep);
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: .3rem .7rem;
+    border-radius: 999px;
+    margin-top: .6rem;
+  }
+
+  @media (max-width: 640px) {
+    .timeline { padding: 2rem 1rem 2rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: .35rem; }
+    .timeline-time { text-align: left; padding-top: 0; padding-left: 1.75rem; }
+    .timeline-time .time-secondary { display: inline-block; margin-top: 0; margin-left: .5rem; }
+    .timeline-line { left: 1.25rem; }
+    .timeline-dot { left: 1.25rem; top: .3rem; }
+    .timeline-content { padding-left: 1.75rem; padding-top: .25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- 1. STICKY HEADER                                              -->
+<!-- ============================================================ -->
+<header class="sticky top-0 z-50 bg-white border-b border-pink-deep/20">
+  <!-- TICKET LAUNCH BANNER -->
+  <div class="bg-pink-deep py-2 px-6 text-center text-white text-xs">
+    <span id="tl-pre" class="inline-flex items-center justify-center gap-3 flex-wrap">
+      <span class="font-semibold uppercase tracking-[0.15em]">Tickets go live in</span>
+      <span class="font-mono font-bold tabular-nums">
+        <span id="tl-days">--</span>d&thinsp;
+        <span id="tl-hours">--</span>h&thinsp;
+        <span id="tl-minutes">--</span>m&thinsp;
+        <span id="tl-seconds">--</span>s
+      </span>
+    </span>
+    <span id="tl-live" style="display:none" class="items-center justify-center gap-3 flex-wrap">
+      <span class="font-semibold uppercase tracking-[0.15em]">Tickets are live!</span>
+      <span data-buy-tickets class="font-bold underline underline-offset-2 cursor-pointer hover:no-underline">Grab yours →</span>
+    </span>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
+    <a href="../" class="flex items-center gap-3">
+      <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="Blk Girls Shoot"
+           class="h-20 w-20 rounded-full"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+      <span class="submark-fallback" style="display:none;width:80px;height:80px;font-size:1.4rem">BGS</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-ink/80">
+      <a href="../" class="hover:text-pink-deep">Home</a>
+      <a href="../events/" class="hover:text-pink-deep">Events</a>
+      <a href="../speakers/" class="hover:text-pink-deep">Speakers</a>
+      <a href="./" class="text-pink-deep font-semibold">Schedule</a>
+      <a href="../about/" class="hover:text-pink-deep">About</a>
+      <a href="../travel/" class="hover:text-pink-deep">Travel</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button type="button" id="mobile-menu-toggle" class="md:hidden p-2 -mr-1 text-ink" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <svg data-icon-hamburger xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg data-icon-close class="hidden" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+      </button>
+      <button type="button" data-buy-tickets class="btn-primary">Get Tickets</button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-pink-deep/20 bg-white">
+    <nav class="px-6 py-3 flex flex-col text-base font-medium text-ink/80">
+      <a href="../" class="py-2 hover:text-pink-deep">Home</a>
+      <a href="../events/" class="py-2 hover:text-pink-deep">Events</a>
+      <a href="../speakers/" class="py-2 hover:text-pink-deep">Speakers</a>
+      <a href="./" class="py-2 text-pink-deep font-semibold">Schedule</a>
+      <a href="../about/" class="py-2 hover:text-pink-deep">About</a>
+      <a href="../travel/" class="py-2 hover:text-pink-deep">Travel</a>
+    </nav>
+  </div>
+</header>
+<script src="../assets/js/nav.js" defer></script>
+
+<!-- Eventbrite checkout modal trigger — wired by tickets.js -->
+<button id="eventbrite-widget-modal-trigger-1992306790241" type="button"
+        style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden"
+        aria-hidden="true" tabindex="-1"></button>
+<noscript><a href="https://www.eventbrite.com/e/blk-girls-shoot-tickets-1992306790241" rel="noopener noreferrer" target="_blank">Buy Tickets on Eventbrite</a></noscript>
+<script src="../assets/js/tickets.js" defer></script>
+
+<!-- ============================================================ -->
+<!-- 2. HERO                                                       -->
+<!-- ============================================================ -->
+<section id="top" class="relative overflow-hidden bg-ink text-cream">
+  <div class="absolute inset-0" style="background:radial-gradient(at 80% 20%, rgba(223,135,176,0.25) 0px, transparent 55%), radial-gradient(at 15% 80%, rgba(246,177,213,0.15) 0px, transparent 50%);"></div>
+  <div class="relative max-w-4xl mx-auto px-6 py-20 md:py-28 text-center">
+    <p class="text-pink-soft font-semibold tracking-[0.2em] text-xs uppercase mb-6">BGS 2026 · The Full Schedule</p>
+    <h1 class="font-display text-5xl md:text-7xl leading-[0.95] mb-6">
+      Full Schedule
+    </h1>
+    <p class="text-lg md:text-xl text-cream/80 max-w-2xl mx-auto mb-8 leading-relaxed">
+      September 4–6, 2026 · Atlanta, Georgia
+    </p>
+    <div class="flex items-center justify-center gap-6 text-sm">
+      <a href="#friday" class="text-pink-soft hover:text-white transition-colors">Friday</a>
+      <span class="text-white/30">·</span>
+      <a href="#saturday" class="text-pink-soft hover:text-white transition-colors">Saturday</a>
+      <span class="text-white/30">·</span>
+      <a href="#sunday" class="text-pink-soft hover:text-white transition-colors">Sunday</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 3. FRIDAY TIMELINE                                            -->
+<!-- ============================================================ -->
+<section id="friday" class="py-10 md:py-14 bg-pink-soft/20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="day-banner">
+      <div class="day-num">01</div>
+      <div>
+        <p class="day-sub">Day One · Friday, September 4</p>
+        <h2 class="day-title">Opening Night Gallery Experience</h2>
+        <p class="day-time">6:00 PM – 9:00 PM</p>
+        <p class="day-address">620 Glen Iris Dr, Suite #111, Atlanta, GA 30308</p>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">6:00 PM<span class="time-secondary">Doors Open</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Opening Night Gallery Experience</h4>
+          <p>Doors open. Guests step into a curated gallery of work by Black women photographers from across the country. Drinks flow. The room begins to fill.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item sparkle">
+        <div class="timeline-time">Live All Evening<span class="time-secondary">Giveaway</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>✨ Adobe Creative Cloud Giveaway</h4>
+          <p>We'll be giving away Adobe Creative Cloud memberships and additional prizes live throughout the evening. Be in the room because you never know what you might walk away with.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">9:00 PM<span class="time-secondary">Wrap</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Evening Closes</h4>
+          <p>See you tomorrow, camera in hand.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 4. SATURDAY TIMELINE                                          -->
+<!-- ============================================================ -->
+<section id="saturday" class="py-10 md:py-14 bg-cream">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="day-banner">
+      <div class="day-num">02</div>
+      <div>
+        <p class="day-sub">Day Two · Saturday, September 5</p>
+        <h2 class="day-title">Hands-On Portfolio Intensive</h2>
+        <p class="day-time">10:00 AM – 2:00 PM</p>
+        <p class="day-address">4598 Glore Rd SW, Mableton, GA 30126</p>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">10:00 AM<span class="time-secondary">Session 1</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Master Luxury Wedding Photography</h4>
+          <p>Learn how to confidently pose couples, create authentic emotion, and use intentional lighting to produce timeless wedding imagery. Michelle will break down her signature workflow so you can create elevated wedding portraits your clients will love.</p>
+          <span class="speaker">Led by Michelle Harris</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">11:00 AM<span class="time-secondary">Session 2</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Build Bold Creative Campaigns</h4>
+          <p>Push beyond traditional portraits and learn how to conceptualize, direct, and execute editorial-style campaigns. You'll walk away with a stronger understanding of creative direction, storytelling, and branding through photography.</p>
+          <span class="speaker">Led by Inari Brianna</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">12:00 PM<span class="time-secondary">Session 3</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Brand Photography That Converts</h4>
+          <p>Go behind the scenes of my complete branding workflow. From planning and strategy to posing, directing lifestyle moments, and creating images with purpose, you'll learn exactly how I build brand sessions that help businesses attract premium clients.</p>
+          <span class="speaker">Led by Mecca Clarke</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">1:00 PM<span class="time-secondary">Session 4</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Create Fine Art Maternity Portraits</h4>
+          <p>Step inside Sophia's signature creative process and learn how she transforms maternity sessions into breathtaking works of art. Discover her approach to styling, lighting, composition, and creative direction to create images that feel intentional, emotional, and unforgettable.</p>
+          <span class="speaker">Led by Sophia Barrett</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">2:00 PM<span class="time-secondary">Wrap</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Portfolio Intensive Wrap</h4>
+          <p>You came to build your portfolio. Tomorrow, we'll show you how to build the business behind it.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 5. SUNDAY TIMELINE                                            -->
+<!-- ============================================================ -->
+<section id="sunday" class="py-10 md:py-14 bg-pink-soft/20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="day-banner">
+      <div class="day-num">03</div>
+      <div>
+        <p class="day-sub">Day Three · Sunday, September 6</p>
+        <h2 class="day-title">Business Summit</h2>
+        <p class="day-time">2:00 PM – 5:00 PM</p>
+        <p class="day-address">828 Ralph McGill Blvd NE, Suite 216, Atlanta, GA 30306</p>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">2:00 PM<span class="time-secondary">Segment 1</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Edit Smarter, Deliver Faster</h4>
+          <p>Build an editing workflow that saves hours every week while creating beautifully consistent galleries. Discover practical tools and techniques to speed up your workflow without sacrificing quality.</p>
+          <span class="sponsor">Powered by Adobe</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">2:30 PM<span class="time-secondary">Segment 2</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Price With Confidence</h4>
+          <p>Learn how to confidently price your work, understand your numbers, and build a business that's profitable, not just busy. Walk away knowing how to charge for the value you bring and create offers that support long-term growth.</p>
+          <span class="speaker">Led by Shay Davis</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">3:00 PM<span class="time-secondary">Segment 3</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Turn Followers Into Clients</h4>
+          <p>Your audience shouldn't stop at likes. Learn how to build an email marketing system that nurtures leads, builds trust, and consistently turns followers into paying clients.</p>
+          <span class="speaker">Led by Kali Stokes</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">3:30 PM<span class="time-secondary">Segment 4</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Become the Brand They Remember</h4>
+          <p>Build a brand that speaks for you before you ever hop on a discovery call. Learn how to position yourself, communicate your value, and create marketing that naturally attracts premium clients.</p>
+          <span class="speaker">Led by Jaylin Bolden</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">4:00 PM<span class="time-secondary">Segment 5</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Build the Business Behind the Brand</h4>
+          <p>Beautiful work gets attention. Great systems create freedom. Learn the workflows, automations, and client experience strategies I use to run a six-figure photography business, save time, and create an experience that keeps clients coming back.</p>
+          <span class="speaker">Led by Mecca Clarke</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">4:30 PM<span class="time-secondary">Roundtable</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>CEO Roundtable</h4>
+          <p><em>Ask Questions. Get Strategy. Leave With a Plan.</em></p>
+          <p>This isn't just a Q&amp;A. It's your opportunity to get personalized feedback, work through real business challenges, and leave with clarity, confidence, and a roadmap for your next season of growth.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-time">5:00 PM<span class="time-secondary">Until Next Year</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Until Next Year</h4>
+          <p>Three days. A stronger portfolio. A smarter business. A community that's ready to grow alongside you.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 6. GET TICKETS CTA                                            -->
+<!-- ============================================================ -->
+<section class="py-14 md:py-20 bg-pink-deep text-white relative overflow-hidden">
+  <div class="absolute inset-0" style="background:radial-gradient(at 75% 25%, rgba(255,255,255,0.1) 0px, transparent 50%);"></div>
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <p class="text-white/80 font-semibold tracking-[0.2em] text-xs uppercase mb-5">Be In The Room</p>
+    <h2 class="font-display text-4xl md:text-6xl mb-6 leading-[1.05]">Ready for Atlanta?</h2>
+    <p class="text-white/80 text-lg leading-relaxed mb-10">All three days. All the sessions. Lock your spot before public sale.</p>
+    <button type="button" data-buy-tickets class="inline-block bg-white text-pink-deep font-semibold text-sm uppercase tracking-[0.04em] px-8 py-4 rounded-full transition hover:bg-cream">Get My Ticket →</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 7. FOOTER                                                     -->
+<!-- ============================================================ -->
+<footer class="bg-cream border-t border-pink-deep/20 py-10">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="https://imagedelivery.net/sXd5fHTemojcKJ8hQdNwFA/920f7f00-36e7-478d-97e8-8c8052052700/public" alt="" class="h-10 w-10 rounded-full" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+        <span class="submark-fallback" style="display:none;width:40px;height:40px;font-size:0.95rem">BGS</span>
+      </div>
+      <div class="flex gap-6 text-sm text-ink/70">
+        <a href="https://instagram.com/blkgirlsshoot" class="hover:text-pink-deep">Instagram</a>
+        <a href="../" class="hover:text-pink-deep">Home</a>
+        <a href="mailto:info@blkgirlsshoot.net" class="hover:text-pink-deep">Contact</a>
+      </div>
+      <p class="text-xs text-ink/50">© 2026 Blk Girls Shoot. All rights reserved.</p>
+    </div>
+    <p class="text-center text-sm text-ink/60 mt-6">
+      Questions? Email us at
+      <a href="mailto:info@blkgirlsshoot.net" class="text-pink-deep hover:underline">info@blkgirlsshoot.net</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

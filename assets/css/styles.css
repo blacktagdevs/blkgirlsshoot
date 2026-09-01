@@ -136,12 +136,12 @@ a.event-pill:hover { background: var(--pink-deep); color: white; transform: tran
 
 /* ---- sponsor logos ---- */
 /* Logos sit muted in grayscale and come to full color on hover so a mixed
-   set of brand marks reads as one row instead of six competing colors. */
+   set of brand marks reads as one row instead of six competing colors.
+   Size caps deliberately live on the <img> tags as utility classes, not
+   here: a source logo is full-resolution, so if this file ever fails to
+   load the tags still hold it to a sane box instead of rendering it at
+   1200px. This rule is presentation only. */
 .sponsor-logo {
-  max-height: 100%;
-  max-width: 100%;
-  width: auto;
-  object-fit: contain;
   filter: grayscale(1);
   opacity: .72;
   transition: filter .25s ease, opacity .25s ease, transform .25s ease;

@@ -34,6 +34,7 @@ body {
 .text-cream     { color: var(--cream); }
 .text-ink       { color: var(--ink); }
 .border-pink-deep { border-color: var(--pink-deep); }
+.border-pink-soft { border-color: var(--pink-soft); }
 
 /* ---- buttons ---- */
 .btn-primary {
@@ -131,4 +132,67 @@ a.event-pill:hover { background: var(--pink-deep); color: white; transform: tran
   background: var(--pink-deep); color: white;
   font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
   letter-spacing: 0.05em;
+}
+
+/* ---- sponsor logos ---- */
+/* Logos sit muted in grayscale and come to full color on hover so a mixed
+   set of brand marks reads as one row instead of six competing colors. */
+.sponsor-logo {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: .72;
+  transition: filter .25s ease, opacity .25s ease, transform .25s ease;
+}
+.sponsor-tile:hover .sponsor-logo,
+.marquee-item:hover .sponsor-logo { filter: grayscale(0); opacity: 1; transform: scale(1.04); }
+
+/* Shown by the img onerror handler when a logo URL fails to load. */
+.sponsor-name {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--ink);
+}
+
+/* ---- sponsor marquee (auto-scrolling logo carousel) ---- */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }   /* the track holds two identical sets */
+}
+.marquee-item {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4.5rem;
+  width: 10.5rem;
+  margin: 0 1.1rem;
+}
+@media (min-width: 768px) {
+  .marquee-item { height: 5.5rem; width: 13rem; margin: 0 1.75rem; }
+}
+/* No motion for anyone who asked for none — the row becomes a swipeable strip. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .marquee { overflow-x: auto; }
 }

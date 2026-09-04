@@ -147,6 +147,13 @@ a.event-pill:hover { background: var(--pink-deep); color: white; transform: tran
 .sponsor-tile:hover .sponsor-logo,
 .marquee-item:hover .sponsor-logo { transform: scale(1.04); }
 
+/* Knockout (white-on-transparent) logos need a dark backdrop to read
+   on this site's light sections — everyone else sits on plain white. */
+.sponsor-chip-dark {
+  background: var(--ink);
+}
+.sponsor-chip-dark .sponsor-name { color: #fff; }
+
 /* Shown by the img onerror handler when a logo URL fails to load. */
 .sponsor-name {
   display: none;

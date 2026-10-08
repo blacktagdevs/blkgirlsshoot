@@ -106,11 +106,11 @@
     </a>
     <nav class="hidden md:flex items-center gap-4 lg:gap-7 text-sm font-medium text-ink/80">
       <a href="../" class="hover:text-pink-deep">Home</a>
-      <a href="./" class="hover:text-pink-deep">Events</a>
+      <!-- <a href="./" class="hover:text-pink-deep">Events</a> -->
       <a href="../speakers/" class="hover:text-pink-deep">Speakers</a>
-      <a href="../schedule/" class="hover:text-pink-deep">Schedule</a>
+      <!-- <a href="../schedule/" class="hover:text-pink-deep">Schedule</a> -->
       <a href="../about/" class="hover:text-pink-deep">About</a>
-      <a href="../travel/" class="hover:text-pink-deep">Travel</a>
+      <!-- <a href="../travel/" class="hover:text-pink-deep">Travel</a> -->
       <a href="../sponsors/" class="hover:text-pink-deep">Sponsors</a>
     </nav>
     <div class="flex items-center gap-2">
@@ -118,22 +118,24 @@
         <svg data-icon-hamburger xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
         <svg data-icon-close class="hidden" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
       </button>
-      <button type="button" data-buy-tickets class="btn-primary">Get Tickets</button>
+      <button type="button" data-open-insider class="btn-primary">Become an Insider</button>
     </div>
   </div>
   <div id="mobile-menu" class="hidden md:hidden border-t border-pink-deep/20 bg-white">
     <nav class="px-6 py-3 flex flex-col text-base font-medium text-ink/80">
       <a href="../" class="py-2 hover:text-pink-deep">Home</a>
-      <a href="./" class="py-2 hover:text-pink-deep">Events</a>
+      <!-- <a href="./" class="py-2 hover:text-pink-deep">Events</a> -->
       <a href="../speakers/" class="py-2 hover:text-pink-deep">Speakers</a>
-      <a href="../schedule/" class="py-2 hover:text-pink-deep">Schedule</a>
+      <!-- <a href="../schedule/" class="py-2 hover:text-pink-deep">Schedule</a> -->
       <a href="../about/" class="py-2 hover:text-pink-deep">About</a>
-      <a href="../travel/" class="py-2 hover:text-pink-deep">Travel</a>
+      <!-- <a href="../travel/" class="py-2 hover:text-pink-deep">Travel</a> -->
       <a href="../sponsors/" class="py-2 hover:text-pink-deep">Sponsors</a>
     </nav>
   </div>
 </header>
 <script src="../assets/js/nav.js" defer></script>
+<script src="../assets/js/insider-modal.js" defer></script>
+<script src="../assets/js/rsvp.js" defer></script>
 
 <!-- Eventbrite checkout modal trigger — wired by tickets.js -->
 <button id="eventbrite-widget-modal-trigger-1992306790241" type="button"
@@ -222,6 +224,26 @@
         </div>
       </article>
 
+      <!-- EVENT CARD: BGS Cowork Session -->
+      <article id="cowork-session" class="event-card">
+        <div class="event-card__flyer" role="img" aria-label="BGS Cowork Session flyer"></div>
+        <div class="event-card__body">
+          <h3 class="event-card__name font-display text-2xl text-ink mb-3">BGS Cowork Session</h3>
+          <p class="event-card__details text-ink/70 text-sm">
+            Bring your laptop. Bring your SD cards. Bring your hard drives. Bring yourself.
+            We're spending the afternoon culling, editing, reviewing portfolios, talking all
+            things photography business, and getting work done — in community with other BLK
+            women photographers who get it. Completely free to attend, but space is limited.
+          </p>
+          <div class="event-card__meta">
+            <span>📅 Saturday, July 25, 2026</span>
+            <span>🕐 12:00 PM EST</span>
+            <span>📍 MCP Studios | Atlanta, GA</span>
+          </div>
+          <button type="button" data-open-rsvp class="btn-primary mt-5">RSVP</button>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -303,7 +325,6 @@
 </script>
 
 <!-- Shared submit handler from the main site: looks for #rsvp-form + #rsvp-status + #rsvp-success -->
-<script src="../assets/js/rsvp.js" defer></script>
 
 
 </body>

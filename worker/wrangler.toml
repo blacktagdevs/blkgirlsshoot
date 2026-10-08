@@ -8,6 +8,6 @@ compatibility_date = "2025-01-01"
 
 [vars]
 ALLOWED_ORIGIN = "https://blkgirlsshoot.net"
-KLAVIYO_LIST_ID = "WBWVDv"
+KLAVIYO_LIST_ID = "TpW5Bw"
 AIRTABLE_BASE_ID = "appNZw4xbiqvXIhLS"
 AIRTABLE_TABLE_ID = "tblGjNHVdoeWhfZOl"

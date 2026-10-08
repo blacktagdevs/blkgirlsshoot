@@ -13,7 +13,7 @@ Marketing site for **Blk Girls Shoot 2026**: campaign + community weekend (Home)
 | Speakers | https://blkgirlsshoot.net/speakers/ | Speaker roster. Each speaker's event pill links to the matching event on the Events page |
 | Internship | https://blkgirlsshoot.net/internship/ | 2026 cohort marketing page · application modal currently **closed** |
 | Worker (form backend) | https://bgs-rsvp.meccaclarkepro.workers.dev | `POST /` → Klaviyo · `POST /apply` → Airtable (route live, **token revoked** so Airtable writes 401) |
-| Klaviyo list | List ID `WBWVDv` ("blkgirlsshoot-2026") | Where every Insider signup lands — from Home `#rsvp`, from Events Register modal, future surfaces too |
+| Klaviyo list | List ID `TpW5Bw` (2027 list) | Where every Insider signup lands — from Home `#rsvp`, from Events Register modal, future surfaces too |
 | Airtable base | Base `appNZw4xbiqvXIhLS` · Table `tblGjNHVdoeWhfZOl` ("INTERN APPLICATIONS — Master View") | Where internship applications land (dormant: cohort closed + token revoked) |
 
 ---
@@ -208,7 +208,7 @@ Concerns, Interview Date, Notes) are left blank on submission and filled in by M
 | Name | Type | Value | Notes |
 |---|---|---|---|
 | `ALLOWED_ORIGIN` | env var | `https://blkgirlsshoot.net` | CORS lockdown |
-| `KLAVIYO_LIST_ID` | env var | `WBWVDv` | The list to subscribe to |
+| `KLAVIYO_LIST_ID` | env var | `TpW5Bw` | The list to subscribe to |
 | `KLAVIYO_API_KEY` | **secret** | encrypted, set via `wrangler secret put` | Klaviyo private API key |
 | `AIRTABLE_BASE_ID` | env var | `appNZw4xbiqvXIhLS` | Internship applications base |
 | `AIRTABLE_TABLE_ID` | env var | `tblGjNHVdoeWhfZOl` | Master View table |
@@ -327,7 +327,7 @@ Both are wrapped in `<template>` tags in [`index.html`](index.html). Remove the 
 ## Forms
 
 ### Home — Insider signup (`#rsvp`)
-Posts to Worker root (`POST /`) → Klaviyo list `WBWVDv`. See pipeline diagram above.
+Posts to Worker root (`POST /`) → Klaviyo list `TpW5Bw`. See pipeline diagram above.
 
 ### Events — Register modal (one per event card)
 Same form, same Worker, same Klaviyo list as Home. The shared [`assets/js/rsvp.js`](assets/js/rsvp.js) hooks up to the modal's `#rsvp-form` automatically. No per-event configuration; segmentation (if needed) is a future Worker change documented above.
@@ -370,7 +370,7 @@ To restore the templated sections, unwrap the `<template>` tag. To restore the i
 ## Punch list / known limitations
 
 - **No rate limiting** on the Worker. Both routes are open to anyone POSTing; bots can mass-submit garbage to Klaviyo. A Cloudflare WAF rule (rate-limit by IP) or a tiny honeypot field would close this.
-- **No per-event segmentation** on Klaviyo. Every Register from any event card lands in the same `WBWVDv` list. If event-specific campaigns matter, add a hidden `event` field on each event modal + map it as a custom property in `handleSubscribe()`, then segment in Klaviyo.
+- **No per-event segmentation** on Klaviyo. Every Register from any event card lands in the same `TpW5Bw` list. If event-specific campaigns matter, add a hidden `event` field on each event modal + map it as a custom property in `handleSubscribe()`, then segment in Klaviyo.
 - **Speaker → event linking is by hand.** When you add or rename an event, you must visit each speaker card and update the pill's `href` and label to match. No central source of truth.
 - **Modal title is hardcoded** to "Behind the Lens Webinar" on the Events page. If a second event card ships before the modal supports per-event titles, both Register buttons will open the same modal with the same title text.
 - **Cloudflare token** in operator's shell isn't persistent. If you want it across sessions, store via 1Password CLI or a sourced env file (outside the repo).

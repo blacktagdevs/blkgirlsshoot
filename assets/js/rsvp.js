@@ -5,17 +5,26 @@
 (function () {
   const STORAGE_KEY = 'bgs-rsvp-submitted';
 
-  // Mirrors the Worker's normalizePhone(): US default, E.164 out.
+  // US/Canada (NANP) numbers: area code and exchange must start 2-9, and
+  // obvious fakes (all one digit, 555-01xx test range) are rejected.
+  function validUS(d) {
+    if (!/^[2-9]\d{2}[2-9]\d{6}$/.test(d)) return false;
+    if (/^(\d)\1+$/.test(d)) return false;
+    if (d.slice(3, 6) === '555' && /^01\d\d$/.test(d.slice(6))) return false;
+    return true;
+  }
+
   // Returns '' for blank, the +E.164 string for valid input, or null if invalid.
   function normalizePhone(raw) {
     const trimmed = String(raw || '').trim();
     if (!trimmed) return '';
     if (/[^\d\s().+-]/.test(trimmed)) return null;
     const digits = trimmed.replace(/\D/g, '');
-    if (digits.length === 10) return '+1' + digits;
-    if (digits.length === 11 && digits.startsWith('1')) return '+' + digits;
-    if (trimmed.startsWith('+') && digits.length >= 8 && digits.length <= 15) return '+' + digits;
-    return null;
+    if (trimmed.startsWith('+') && !digits.startsWith('1')) {
+      return digits.length >= 8 && digits.length <= 15 ? '+' + digits : null;
+    }
+    const us = digits.length === 11 && digits.startsWith('1') ? digits.slice(1) : digits;
+    return us.length === 10 && validUS(us) ? '+1' + us : null;
   }
 
   function bind(form) {

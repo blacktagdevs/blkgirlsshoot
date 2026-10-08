@@ -5,6 +5,19 @@
 (function () {
   const STORAGE_KEY = 'bgs-rsvp-submitted';
 
+  // Mirrors the Worker's normalizePhone(): US default, E.164 out.
+  // Returns '' for blank, the +E.164 string for valid input, or null if invalid.
+  function normalizePhone(raw) {
+    const trimmed = String(raw || '').trim();
+    if (!trimmed) return '';
+    if (/[^\d\s().+-]/.test(trimmed)) return null;
+    const digits = trimmed.replace(/\D/g, '');
+    if (digits.length === 10) return '+1' + digits;
+    if (digits.length === 11 && digits.startsWith('1')) return '+' + digits;
+    if (trimmed.startsWith('+') && digits.length >= 8 && digits.length <= 15) return '+' + digits;
+    return null;
+  }
+
   function bind(form) {
     if (form.dataset.bound) return;
     form.dataset.bound = '1';
@@ -25,6 +38,16 @@
       }
 
       const data = Object.fromEntries(new FormData(form).entries());
+
+      // Block bad phone numbers here so they never reach Klaviyo as unusable data.
+      const phone = normalizePhone(data.phone);
+      if (phone === null) {
+        setStatus('Please enter a valid phone number, like (404) 555-1234, or leave it blank.', true);
+        const phoneInput = form.querySelector('[name="phone"]');
+        if (phoneInput) phoneInput.focus();
+        return;
+      }
+      data.phone = phone;
       button.disabled = true;
       const original = button.textContent;
       button.textContent = 'Sending…';
